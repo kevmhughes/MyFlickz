@@ -15,6 +15,12 @@ http.createServer((request, response) => {
     }
   });
 
+   if (q.pathname.includes('documentation')) {
+    filePath = (__dirname + '/documentation.html');
+  } else {
+    filePath = 'index.html';
+  }
+
   fs.readFile(filePath, (err, data) => {
     if (err) {
       throw err;
@@ -27,11 +33,7 @@ http.createServer((request, response) => {
   });
 
 
-  if (q.pathname.includes('documentation')) {
-    filePath = (__dirname + '/documentation.html');
-  } else {
-    filePath = 'index.html';
-  }
+ 
   
 }).listen(8080);
 console.log('My test server is running on Port 8080.');
