@@ -15,6 +15,18 @@ http.createServer((request, response) => {
     }
   });
 
+  fs.readFile(filePath, (err, data) => {
+    if (err) {
+      throw err;
+    }
+
+    response.writeHead(200, { 'Content-Type': 'text/html' });
+    response.write(data);
+    response.end();
+
+  });
+
+
   if (q.pathname.includes('documentation')) {
     filePath = (__dirname + '/documentation.html');
   } else {
