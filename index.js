@@ -1,4 +1,11 @@
-const express = require('express'),
+const express = require('express');
+const mongoose = require('mongoose');
+const Models = require('./models.js');
+
+const Movies = Models.Movie;
+const Users = Models.User;
+
+mongoose.connect('mongodb://localhost:27017/myFlixDB', { useNewUrlParser: true, useUnifiedTopology: true});
 
 bodyParser = require('body-parser'),
 //individual ID creator
