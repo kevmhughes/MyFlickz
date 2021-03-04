@@ -1,6 +1,9 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const Models = require('./models.js');
+const passport= require('passport');
+require('./passport');
+
 
 const Movies = Models.Movie;
 const Users = Models.User;
@@ -19,6 +22,9 @@ app.use(morgan('common'));
 app.use(express.static('public'));
 
 app.use(bodyParser.json());
+
+// This ensures that Express is available in the auth.js file, too
+let auth = require('./auth')(app);
 
 app.use((err, req, res, next) => {
     console.error(err.stack);
@@ -55,7 +61,7 @@ app.get('/users/:Username', (req, res) => {
 });
 
 // Get a list of all the movies
-app.get('/movies', (req, res) => {
+app.get('/movies', passport.authenticate('jwt', { session: false }), (req, res) => {
   Movies.find()
     .then((movies) => {
       res.status(201).json(movies);
