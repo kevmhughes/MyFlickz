@@ -1,9 +1,12 @@
+const cors = require('cors');
+//defines that express ("app") uses cors
+app.use(cors());
 const express = require('express');
 const mongoose = require('mongoose');
 const Models = require('./models.js');
 const passport= require('passport');
 require('./passport');
-
+const { check, validationResult } = require('express-validator');
 
 const Movies = Models.Movie;
 const Users = Models.User;
@@ -15,6 +18,7 @@ bodyParser = require('body-parser'),
 uuid = require('uuid'),
 //morgan middleware lib. that logs all requests
 morgan = require('morgan');
+// defining express as "app"
 const app = express();
 //morgan with common functions
 app.use(morgan('common'));
@@ -119,16 +123,38 @@ app.get('/movies/:Title', passport.authenticate('jwt', { session: false }), (req
   Email: String,
   Birthday: Date
   }*/
-  app.post('/users', passport.authenticate('jwt', { session: false }), (req, res) => {
+  app.post('/users', 
+  // Validation logic here for request
+  //you can either use a chain of methods like .not().isEmpty()
+  //which means "opposite of isEmpty" in plain english "is not empty"
+  //or use .isLength({min: 5}) which means
+  //minimum value of 5 characters are only allowed
+  [
+    check('Username', 'Username is required').isLength({min: 5}),
+    check('Username', 'Username contains non alphanumeric characters - not allowed.').isAlphanumeric(),
+    check('Password', 'Password is required').not().isEmpty(),
+    check('Email', 'Email does not appear to be valid').isEmail()
+  ], (req, res) => {
+    // check the validation object for errors
+    let errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+      return res.status(422).json({ errors: errors.array() });
+    }
+
+    //Hash any password entered by the user when registering before storing it in the MongoDB database
+    let hashedPassword = Users.hashPassword(req.body.Password);
     Users.findOne({ Username: req.body.Username })
+    // Search to see if a user with the requested username already exists
       .then((user) => {
         if (user) {
+           //If the user is found, send a response that the user already exists
           return res.status(400).send(req.body.Username + ' already exists');
         } else {
           Users
             .create({
               Username: req.body.Username,
-              Password: req.body.Password,
+              Password: hashedPassword,
               Email: req.body.Email,
               Birthday: req.body.Birthday
             })
@@ -224,6 +250,7 @@ app.post('/users/:Username/Movies/:MovieID', passport.authenticate('jwt', { sess
     });
   });
 
-  app.listen(8080, () => {
-    console.log('Your app is listening on port 8080.');
-  });
+  const port = process.env.PORT || 8080;
+app.listen(port, '0.0.0.0',() => {
+ console.log('Listening on Port ' + port);
+});
