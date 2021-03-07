@@ -1,6 +1,5 @@
 const cors = require('cors');
 //defines that express ("app") uses cors
-app.use(cors());
 const express = require('express');
 const mongoose = require('mongoose');
 const Models = require('./models.js');
@@ -29,6 +28,18 @@ app.use(bodyParser.json());
 
 // This ensures that Express is available in the auth.js file, too
 let auth = require('./auth')(app);
+
+let allowedOrigins = ['http://localhost:8080', 'http://testsite.com'];
+app.use(cors({
+  origin: (origin, callback) => {
+    if(!origin) return callback(null, true);
+    if(allowedOrigins.indexOf(origin) === -1){ // If a specific origin isn’t found on the list of allowed origins
+      let message = 'The CORS policy for this application doesn’t allow access from origin ' + origin;
+      return callback(new Error(message ), false);
+    }
+    return callback(null, true);
+  }
+}));
 
 app.use((err, req, res, next) => {
     console.error(err.stack);
