@@ -34,7 +34,7 @@ app.use(bodyParser.json());
 // This ensures that Express is available in the auth.js file, too
 let auth = require('./auth')(app);
 
-let allowedOrigins = ['http://localhost:8080', 'http://testsite.com'];
+let allowedOrigins = ['*'];
 app.use(cors({
   origin: (origin, callback) => {
     if(!origin) return callback(null, true);
