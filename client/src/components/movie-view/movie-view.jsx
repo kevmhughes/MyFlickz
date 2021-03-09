@@ -1,4 +1,6 @@
 import React from 'react';
+import Button from "react-bootstrap/Button";
+import { Link } from "react-router-dom";
 
 export class MovieView extends React.Component {
 
@@ -15,7 +17,7 @@ export class MovieView extends React.Component {
 
         return (
             <div className="movie-view">
-                <img className="movie-poster" src={movie-ImagePath}/>
+                <img className="movie-poster" src={movie.ImagePath}/>
                 <div className="movie-title">
                     <span className="label">Title: </span>
                     <span className="value">{movie.Title}</span>
@@ -33,6 +35,9 @@ export class MovieView extends React.Component {
                     <span className="label">Director: </span>
                     <span className="value">{movie.Director.Name}</span>
                 </div>
+                <Link to={`/`}>
+          <Button className='back-button'>Back</Button>
+        </Link>
             </div>
         );
     }
