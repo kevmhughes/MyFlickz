@@ -1,3 +1,25 @@
+.container {
+  padding-top: 100px;
+}
+.card-text {
+  height: 170px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+.movie-poster {
+  margin-right: 20px;
+  margin-bottom: 20px;
+}
+
+.label {
+  font-weight: bold;
+}
+
+@media (max-width: 576px) {
+  .media {
+    flex-direction: column;
+  }
+}
 .my-flix {
   color: steelblue;
 }

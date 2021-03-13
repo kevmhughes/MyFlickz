@@ -1,0 +1,14 @@
+.movie-poster {
+    margin-right: 20px;
+    margin-bottom: 20px;
+}
+
+.label {
+    font-weight: bold;
+}
+
+.media {
+@media (max-width: "576px") {
+    flex-direction: column;
+  }
+  }
