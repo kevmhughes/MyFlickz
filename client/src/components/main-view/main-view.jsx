@@ -26,7 +26,30 @@ export class MainView extends React.Component {
     }
 
     componentDidMount() {
-        axios.get('https://myflickz.herokuapp.com/movies')
+    let accessToken = localStorage.getItem('token');
+    if (accessToken !== null) {
+        this.setState({
+            user: localStorage.getItem('user')
+        });
+        this.getMovies(accessToken);
+        }
+    }
+
+    onLoggedIn(authData) {
+        console.log(authData);
+        this.setState({
+          user: authData.user.Username
+        });
+
+        localStorage.setItem('token', authData.token);
+        localStorage.setItem('user', authData.user.Username);
+        this.getMovies(authData.token);
+    }
+
+    getMovies(token) {
+        axios.get('https://myflickz.herokuapp.com/movies', {
+           headers: { Authorization: `Bearer ${token}`} 
+        })
         .then(response => {
             // Assign the result to the state
             this.setState({
@@ -42,17 +65,6 @@ export class MainView extends React.Component {
         this.setState({
             selectedMovie: movie
         });
-    }
-
-    onLoggedIn(authData) {
-        console.log(authData);
-        this.setState({
-          user: authData.user.Username
-        });
-
-        localStorage.setItem('token', authData.token);
-        localStorage.setItem('user', authData.user.Username);
-        this.getMovies(auhData.token);
     }
 
     onRegisterUser (newUser) {
