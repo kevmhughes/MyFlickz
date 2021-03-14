@@ -1,11 +1,14 @@
 import React from 'react';
 import axios from 'axios';
+import { BrowserRouter as Router, Route} from "react-router-dom";
 import './main-view.scss';
 
 import { RegistrationView } from '../registration-view/registration-view';
 import { LoginView } from '../login-view/login-view';
 import { MovieCard } from '../movie-card/movie-card';
 import { MovieView } from '../movie-view/movie-view';
+import { GenreView } from '../genre-view/genre-view';
+import { DirectorView } from '../director-view/director-view';
 
 export class MainView extends React.Component {
     constructor() {
@@ -17,12 +20,10 @@ export class MainView extends React.Component {
         //Initialize the state to an empty object 
         // so that we can destructure it later
         this.state = {
-            movies: null,
-            selectedMovie: null,
+            movies: [],
             user: null,
-            newUser: null
         };
-        this.onRegisterUser = this.onRegisterUser.bind(this);
+
     }
 
     componentDidMount() {
@@ -61,48 +62,43 @@ export class MainView extends React.Component {
         });
     }
 
-    onMovieClick(movie) {
-        this.setState({
-            selectedMovie: movie
-        });
-    }
-
-    onRegisterUser (newUser) {
-        this.setState({
-          newUser
-        });
-    }
-
-
-
     // This overrides the render() method of the superclass
     // No need to call super() though, as it does nothin by default
     render() {
         // If the state is not initialized, this will throw on runtime
         // before the data is initially loaded
-        const { movies, selectedMovie, user, newUser } = this.state;
+        const { movies, user } = this.state;
 
-        //NEED TO FIND A SOLUTION FOR THIS BELOW!!!!!!!!!!!
-        //if (!newUser) return <RegistrationView onRegisterUser={newUser => this.onRegisterUser(newUser)} />;
-
-        if (!user) return <LoginView onLoggedIn={user => this.onLoggedIn(user)} />;
-        
         //Before the movies have been loaded
         if (!movies) return <div className="main-view"/>;
 
         return (
-            <div className="main-view">
-                {selectedMovie 
-                ? <MovieView 
-                    movie={selectedMovie} 
-                    onClick={() => this.onMovieClick(null)}/>
-                : movies.map(movie => (
-                    <MovieCard 
-                    key={movie._id} 
-                    movie={movie} 
-                    onClick={movie => this.onMovieClick(movie)}/>
-                ))}
-            </div>
+            <Router>
+                <div className="main-view">
+
+                    <Route path='/register' render={() => <RegistrationView />} />
+
+                    <Route exact path='/' render={() => { 
+                        if (!user) return <LoginView onLoggedIn={user => this.onLoggedIn(user)} />;
+                        return movies.map(m => <MovieCard key={m._id} movie={m}/>)}}/>
+
+                    <Route path='/movies/:movieId' render={({match}) => 
+                    <MovieView movie={movies.find(m => m._id === match.params.movieId)}/>}/>
+
+                    <Route path='/directors/:name' render={({match}) => {
+                        if (!movies) return <div className="main-view"/>;
+                        return <DirectorView director={movies.find(m => 
+                            m.Director.Name === match.params.name).Director}/>
+                    }}/>
+
+                    <Route path='/genres/:name' render={({match}) => {
+                        if (!movies) return <div className="main-view"/>;
+                        return <GenreView genre={movies.find(m => 
+                            m.Genre.Name === match.params.name).Genre}/>
+                    }}/>
+
+                </div>
+            </Router>
         );
     }
 }

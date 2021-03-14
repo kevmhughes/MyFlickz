@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Navbar, Container, Row, Col, Form, Button } from 'react-bootstrap';
 import axios from 'axios';
 import './registration-view.scss';
+import { Link } from 'react-router-dom';
 
 export function RegistrationView(props) {
   const [ username, setUsername ] = useState('');
@@ -23,11 +24,10 @@ export function RegistrationView(props) {
     axios
     .post('https://myflickz.herokuapp.com/users', newUser)
     .then ((response) => {
-        console.log(response);
-        console.log(response.data);
+        const data = response.data;
+        console.log(data);
         alert('User created successfully.');
-        //window.open('/client', '_self');
-        props.onRegisterUser(newUser) 
+        window.open('/', '_self');// the second argument '_self' is necessary so that the page will open in the current tab
     })
     .catch((e) => {
         console.log(e.response);
@@ -78,8 +78,9 @@ export function RegistrationView(props) {
               value={birthday} 
               onChange={e => setBirthday(e.target.value)} />
             </Form.Group>
-
+            <Link to={`/client`}>
             <Button variant="primary" onClick={handleSubmit}>Submit</Button>
+            </Link>
           </Form>
         </Col>
       </Row>

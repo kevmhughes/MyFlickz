@@ -123,7 +123,6 @@ app.get('/movies/:Title', passport.authenticate('jwt', { session: false }), (req
     Movies.findOne({'Director.Name': req.params.Name})
     .then((movie) => {
       res.json(movie.Director);
-      // FOR ONLY BIO TRY THIS!!! res.json(movie.Director.Bio); REMOVE LATER!!!
     })
     .catch((err) => {
       console.error(err);
