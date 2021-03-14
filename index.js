@@ -31,6 +31,7 @@ app.use(express.static('public'));
 
 app.use(bodyParser.json());
 
+app.use(cors())
 // This ensures that Express is available in the auth.js file, too
 let auth = require('./auth')(app);
 
