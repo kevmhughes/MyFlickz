@@ -37,50 +37,68 @@ export function RegistrationView(props) {
 
   return (
   <Container className="registration-view">
+
     <Navbar fixed="top" variant="light" bg="light">
       <Navbar.Brand href="/">MyFlix</Navbar.Brand>
     </Navbar>
+
+    <Row>
+        <Col xs={{ offset: 1 }} sm={{ offset: 0 }} md={{ offset: 0 }} lg={{ offset: 0 }}>
+          <h1>Register for MyFlix</h1>
+          <br/>
+        </Col>
+    </Row>
+
       <Row className="justify-content-center">
         <Col xs={8} sm={8} md={6} lg={4} className="form-container">
           <Form>
+            
             <Form.Group controlId="formBasicUsername">
               <Form.Label>Username</Form.Label>
-              <Form.Control 
-              type="text" 
-              placeholder="Enter username"
-              value={username} 
-              onChange={e => setUsername(e.target.value)} />
+                <Form.Control 
+                type="text" 
+                placeholder="Enter username"
+                value={username} 
+                onChange={e => setUsername(e.target.value)} />
             </Form.Group>
 
             <Form.Group controlId="formBasicPassword">
               <Form.Label>Password</Form.Label>
-              <Form.Control 
-              type="password" 
-              placeholder="Enter password"
-              value={password} 
-              onChange={e => setPassword(e.target.value)} />
+                <Form.Control 
+                type="password" 
+                placeholder="Enter password"
+                value={password} 
+                onChange={e => setPassword(e.target.value)} />
             </Form.Group>
 
             <Form.Group controlId="formBasicEmail">
               <Form.Label>Email</Form.Label>
-              <Form.Control 
-              type="email" 
-              placeholder="Enter email"
-              value={email} 
-              onChange={e => setEmail(e.target.value)} />
+                <Form.Control 
+                type="email" 
+                placeholder="Enter email"
+                value={email} 
+                onChange={e => setEmail(e.target.value)} />
             </Form.Group>
 
             <Form.Group controlId="formBasicBirthday">
-            <Form.Label>Birthday</Form.Label>
-              <Form.Control 
-              type="birthday" 
-              placeholder="Enter date of birth"
-              value={birthday} 
-              onChange={e => setBirthday(e.target.value)} />
+              <Form.Label>Birthday</Form.Label>
+                <Form.Control 
+                type="date" 
+                placeholder="Enter date of birth"
+                value={birthday} 
+                onChange={e => setBirthday(e.target.value)} />
             </Form.Group>
+
             <Link to={`/client`}>
-            <Button variant="primary" onClick={handleSubmit}>Submit</Button>
+              <Button 
+                variant="primary" 
+                size="sm" 
+                style={{ float: "right"}}
+                onClick={handleSubmit}>
+                  Register
+              </Button>
             </Link>
+
           </Form>
         </Col>
       </Row>

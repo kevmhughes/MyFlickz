@@ -1,13 +1,40 @@
+.navbar-text {
+  padding-right: 10px;
+}
+
+.movie-list-view {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: flex-start;
+  align-content: flex-start;
+  flex-wrap: wrap;
+  max-width: 100%;
+}
+
+.container {
+  width: auto;
+  padding-right: 15px;
+  padding-left: 15px;
+}
+
+.logout-button {
+  margin-right: 10px;
+}
+.registration-view {
+  flex: none;
+}
 .container {
   padding-top: 100px;
+  margin-bottom: -50px;
 }
-.card-text {
-  height: 170px;
-  text-overflow: ellipsis;
-  overflow: hidden;
+
+.nav-button {
+  display: flex;
+  justify-content: flex-end;
 }
 .movie-poster {
-  margin-right: 20px;
+  margin-left: 20px;
   margin-bottom: 20px;
 }
 
@@ -17,8 +44,42 @@
 
 @media (max-width: 576px) {
   .media {
-    flex-direction: column;
+    flex-direction: column-reverse;
+    margin-left: 20px;
   }
+}
+
+.movie-poster {
+  margin-top: 115px;
+}
+@media (max-width: 992px) {
+  .movie-poster {
+    margin-left: 0px;
+    margin-bottom: 20px;
+    margin-top: 0px;
+  }
+}
+.genre-movies-button {
+  float: right;
+}
+
+.genre-movie-list {
+  margin-left: 0px;
+}
+
+.label {
+  font-weight: bold;
+}
+.director-movies-button {
+  float: right;
+}
+
+.director-movie-list {
+  margin-left: 0px;
+}
+
+.label {
+  font-weight: bold;
 }
 .my-flix {
   color: steelblue;

@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Navbar, Container, Button, Card} from 'react-bootstrap';
+import { Container, Button, Card} from 'react-bootstrap';
 import { Link } from "react-router-dom";
 import './movie-card.scss';
 
@@ -13,17 +13,16 @@ export class MovieCard extends React.Component {
         
         return (
         <Container className="card-container">
-            <Navbar fixed="top" variant="light" bg="light">
-                <Navbar.Brand href="/">MyFlix</Navbar.Brand>
-            </Navbar>
                 <Card style={{ width: '14rem'}}>
-                    <Card.Img variant="top" src={movie.ImagePath}/>
+                    <Card.Img style={{ height: '18rem'}} variant="top" src={movie.ImagePath}/>
                     <Card.Body>
-                        <Card.Title>{movie.Title}</Card.Title>
+                      <Link to={`/movies/${movie._id}`} style={{ textDecoration: "none" }}>
+                        <Card.Title style={{ height: '3rem'}}>{movie.Title}</Card.Title>
+                      </Link>
                         <Card.Subtitle className="text-muted">{movie.Genre.Name}</Card.Subtitle>
-                        <Card.Text>{movie.Description}</Card.Text>
+                        <Card.Text style={{ height: '120px'}}>{movie.Description.substring(0, 90)}...</Card.Text>
                         <Link to={`/movies/${movie._id}`}>
-                            <Button variant="link">Open</Button>
+                            <Button variant="primary" size="sm">Open</Button>
                         </Link>
                     </Card.Body>
                 </Card>

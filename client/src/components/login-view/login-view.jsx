@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Navbar, Container, Row, Col, Form, Button } from 'react-bootstrap';
+import { Navbar, Nav, Container, Row, Col, Form, Button } from 'react-bootstrap';
 import './login-view.scss';
 import axios from 'axios';
 
@@ -25,10 +25,27 @@ export function LoginView(props) {
 
   return (
     <Container className="login-view">
-      <Navbar fixed="top" variant="light" bg="light">
-        <Navbar.Brand href="/">MyFlix</Navbar.Brand>
+
+      <Navbar 
+        className="d-flex justify-content-between" 
+        fixed="top" 
+        variant="light" 
+        bg="light">
+          <Navbar.Brand href="/">MyFlix</Navbar.Brand>
+          <Nav>
+            <Button href='/users' size="sm">Sign up</Button>
+          </Nav>
       </Navbar>
+
+      <Row>
+        <Col xs={{ offset: 1 }} sm={{ offset: 0 }} md={{ offset: 0 }} lg={{ offset: 0 }}>
+        <h1>Log in to MyFlix</h1>
+        <br/>
+        </Col>
+      </Row>
+
       <Row className="justify-content-center">
+        
         <Col xs={8} sm={8} md={6} lg={4} className="form-container">
           <Form>
             <Form.Group controlId="formBasicUsername">
@@ -48,7 +65,15 @@ export function LoginView(props) {
                 value={password} 
                 onChange={e => setPassword(e.target.value)}/>
             </Form.Group>
-            <Button variant="primary" onClick={handleSubmit}>Submit</Button>
+
+            <Button 
+              style={{ float: "right" }} 
+              variant="primary" 
+              size="sm" 
+              onClick={handleSubmit}>
+              Log in
+              </Button>
+          
           </Form>
         </Col>
       </Row>

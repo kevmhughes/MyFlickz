@@ -1,5 +1,5 @@
 .movie-poster {
-    margin-right: 20px;
+    margin-left: 20px;
     margin-bottom: 20px;
 }
 
@@ -9,6 +9,16 @@
 
 .media {
 @media (max-width: "576px") {
-    flex-direction: column;
+    flex-direction: column-reverse;
+    margin-left: 20px;
   }
   }
+
+  .movie-poster {
+    margin-top: 115px;
+ @media (max-width: "992px") {
+    margin-left: 0px;
+    margin-bottom: 20px;
+    margin-top: 0px;
+ }
+}
