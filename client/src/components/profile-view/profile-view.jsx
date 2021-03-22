@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from "prop-types";
-import { Spinner, Row, Col, Form, Button, Container } from 'react-bootstrap';
+import { Spinner, Row, Col, Form, Button, Container, Card } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
@@ -184,13 +184,13 @@ render() {
                   {favoriteMovies.length === 0 && <div className="values favorite-movies"><h5>No favourite movies have been added yet.</h5></div>}
                   {(favoriteMovies.length > 0) ? (favoriteMovieList.map(m => 
                   (
-                      <div key={m._id} className="favorite-movies-card-body card" style={{ minWidth: "16rem", maxWidth: '16rem', marginRight: "15px", marginBottom: "20px"  }}>
-                      <img variant="top" src={m.ImagePath} style={{ maxHeight: '21rem' }} />
-                      <div className="favorite-card-body" style={{ padding: '20px' }}>
-                        <div align="center"><h5>{m.Title}</h5></div>
+                      <Card  key={m._id} className="favorite-movies-card-body card" style={{ minWidth: "16rem", maxWidth: '16rem', marginRight: "15px", marginBottom: "20px"  }}>
+                      <Card.Img variant="top" src={m.ImagePath} style={{ maxHeight: '21rem' }} />
+                      <Card.Body className="favorite-card-body" style={{ padding: '20px' }}>
+                        <Card.Title style={{ height: '3rem'}} align="center">{m.Title}</Card.Title>
                         <Button onClick={e => this.removeFavoriteMovie(m._id)} variant="outline-primary" size="lg" block >Remove</Button>
-                      </div>
-                      </div>
+                      </Card.Body>
+                      </Card>
                       ))) : ""}
                 </div>
               </div>

@@ -6,8 +6,19 @@
     margin-left: 0px;
 }
 
+.genre-movie-list {
+    @media (max-width: "576px"){
+    margin-left: 0px;
+    place-content: center;
+    }
+}
+
+.some-movies-genre {
+    @media (max-width: "576px"){
+    margin-left: 20px;
+    }
+}
+
 .label {
     font-weight: bold;
 }
-
-

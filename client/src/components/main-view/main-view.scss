@@ -12,6 +12,12 @@
     max-width: 100%
 }
 
+.media {
+    @media (max-width: "576px") {
+        align-content: space-around;
+      }
+      }
+
 .container {
     width: auto; 
     padding-right: 15px;

@@ -6,6 +6,19 @@
     margin-left: 0px;
 }
 
+.director-movie-list {
+    @media (max-width: "576px"){
+    margin-left: 0px;
+    place-content: center;
+    }
+}
+
+.some-movies-director {
+    @media (max-width: "576px"){
+    margin-left: 20px;
+    }
+}
+
 .label {
     font-weight: bold;
 }

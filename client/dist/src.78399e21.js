@@ -52074,6 +52074,7 @@ function (_React$Component) {
       return _react.default.createElement(_reactBootstrap.Container, {
         className: "card-container"
       }, _react.default.createElement(_reactBootstrap.Card, {
+        className: "movie-card-body",
         style: {
           width: '14rem'
         }
@@ -62329,7 +62330,7 @@ function (_React$Component) {
       }, genre.Description)))), _react.default.createElement("div", {
         className: "genre-view"
       }, _react.default.createElement("br", null), _react.default.createElement("h4", {
-        className: "mt-4 ml-30"
+        className: "some-movies-genre mt-4 ml-30"
       }, "Some ", genre.Name.toLowerCase(), " movies"), _react.default.createElement("div", {
         className: "genre-movie-list d-flex row mt-3 ml-15"
       }, movies.map(function (m) {
@@ -62341,7 +62342,7 @@ function (_React$Component) {
               marginBottom: "20px"
             }
           }, _react.default.createElement(_reactBootstrap.Card, {
-            className: "cards mb-3 mr-2 h-100",
+            className: "cards mb-3 mr-2",
             style: {
               width: '16rem'
             }
@@ -62358,12 +62359,11 @@ function (_React$Component) {
             }
           }, _react.default.createElement(_reactBootstrap.Card.Title, null, m.Title)), _react.default.createElement(_reactBootstrap.Card.Subtitle, {
             className: "text-muted"
-          }, m.Genre.Name), _react.default.createElement(_reactBootstrap.Card.Text, null, m.Description.substring(0, 90), "...")), _react.default.createElement(_reactBootstrap.Card.Footer, {
-            className: "bg-white border-top-0"
-          }, _react.default.createElement(_reactRouterDom.Link, {
+          }, m.Genre.Name), _react.default.createElement(_reactBootstrap.Card.Text, null, m.Description.substring(0, 90), "..."), _react.default.createElement(_reactRouterDom.Link, {
             to: "/movies/".concat(m._id)
           }, _react.default.createElement(_reactBootstrap.Button, {
-            variant: "primary"
+            variant: "primary",
+            size: "sm"
           }, "Read more")))));
         }
       }))));
@@ -62490,7 +62490,7 @@ function (_React$Component) {
       }, director.Bio)))), _react.default.createElement("div", {
         className: "director-view"
       }, _react.default.createElement("br", null), _react.default.createElement("h4", {
-        className: "mt-4 ml-30"
+        className: " some-movies-director mt-4 ml-30"
       }, "Some movies from ", director.Name), _react.default.createElement("div", {
         className: "director-movie-list d-flex row mt-3 ml-15"
       }, movies.map(function (m) {
@@ -62502,7 +62502,7 @@ function (_React$Component) {
               marginBottom: "20px"
             }
           }, _react.default.createElement(_reactBootstrap.Card, {
-            className: "mb-3 mr-2 h-100",
+            className: "mb-3 mr-2",
             style: {
               width: '16rem'
             }
@@ -62519,12 +62519,11 @@ function (_React$Component) {
             }
           }, _react.default.createElement(_reactBootstrap.Card.Title, null, m.Title)), _react.default.createElement(_reactBootstrap.Card.Subtitle, {
             className: "text-muted"
-          }, m.Genre.Name), _react.default.createElement(_reactBootstrap.Card.Text, null, m.Description.substring(0, 90), "...")), _react.default.createElement(_reactBootstrap.Card.Footer, {
-            className: "bg-white border-top-0"
-          }, _react.default.createElement(_reactRouterDom.Link, {
+          }, m.Genre.Name), _react.default.createElement(_reactBootstrap.Card.Text, null, m.Description.substring(0, 90), "..."), _react.default.createElement(_reactRouterDom.Link, {
             to: "/movies/".concat(m._id)
           }, _react.default.createElement(_reactBootstrap.Button, {
-            variant: "primary"
+            variant: "primary",
+            size: "sm"
           }, "Read more")))));
         }
       }))));
@@ -62812,7 +62811,7 @@ function (_React$Component) {
         }, favoriteMovies.length === 0 && _react.default.createElement("div", {
           className: "values favorite-movies"
         }, _react.default.createElement("h5", null, "No favourite movies have been added yet.")), favoriteMovies.length > 0 ? favoriteMovieList.map(function (m) {
-          return _react.default.createElement("div", {
+          return _react.default.createElement(_reactBootstrap.Card, {
             key: m._id,
             className: "favorite-movies-card-body card",
             style: {
@@ -62821,20 +62820,23 @@ function (_React$Component) {
               marginRight: "15px",
               marginBottom: "20px"
             }
-          }, _react.default.createElement("img", {
+          }, _react.default.createElement(_reactBootstrap.Card.Img, {
             variant: "top",
             src: m.ImagePath,
             style: {
               maxHeight: '21rem'
             }
-          }), _react.default.createElement("div", {
+          }), _react.default.createElement(_reactBootstrap.Card.Body, {
             className: "favorite-card-body",
             style: {
               padding: '20px'
             }
-          }, _react.default.createElement("div", {
+          }, _react.default.createElement(_reactBootstrap.Card.Title, {
+            style: {
+              height: '3rem'
+            },
             align: "center"
-          }, _react.default.createElement("h5", null, m.Title)), _react.default.createElement(_reactBootstrap.Button, {
+          }, m.Title), _react.default.createElement(_reactBootstrap.Button, {
             onClick: function onClick(e) {
               return _this4.removeFavoriteMovie(m._id);
             },
@@ -63361,7 +63363,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50033" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51618" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
