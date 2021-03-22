@@ -3,23 +3,21 @@ import axios from 'axios';
 
 import { connect } from 'react-redux';
 
-//import PropTypes from 'prop-types';
-import { Navbar, Nav, Media, Button } from 'react-bootstrap';
+import PropTypes from 'prop-types';
+import { Navbar, Nav, Button } from 'react-bootstrap';
 import { BrowserRouter as Router, Route} from "react-router-dom";
 import './main-view.scss';
 
 // #0
 import { setMovies } from '../../actions/actions';
-
-            // we haven't written this one yet
 import MoviesList from '../movies-list/movies-list';
+
 import { RegistrationView } from '../registration-view/registration-view';
 import { LoginView } from '../login-view/login-view';
-//import { MovieCard } from '../movie-card/movie-card';
 import { MovieView } from '../movie-view/movie-view';
-//import { GenreView } from '../genre-view/genre-view';
-//import { DirectorView } from '../director-view/director-view';
-//import { ProfileView } from '../profile-view/profile-view';
+import { GenreView } from '../genre-view/genre-view';
+import { DirectorView } from '../director-view/director-view';
+import { ProfileView } from '../profile-view/profile-view';
 
 export class MainView extends React.Component {
     constructor() {
@@ -31,7 +29,6 @@ export class MainView extends React.Component {
         //Initialize the state to an empty object 
         // so that we can destructure it later
         this.state = {
-            //movies: [],
             user: null,
         };
 
@@ -68,10 +65,6 @@ export class MainView extends React.Component {
            headers: { Authorization: `Bearer ${token}`} 
         })
         .then(response => {
-            /*this.setState({
-                movies: response.data
-            });
-            */
             // #1
             this.props.setMovies(response.data);
         })
@@ -94,22 +87,7 @@ export class MainView extends React.Component {
         //Before the movies have been loaded
         if (!movies) return <div className="main-view"/>;
 
-        return (
-            <Router>
-               <div className="main-view">
-                 <Route exact path="/" render={() => {
-                   if (!user) return <LoginView onLoggedIn={user => this.onLoggedIn(user)} />;
-                   return <MoviesList movies={movies}/>;
-               }} />
-                 <Route path="/register" render={() => <RegistrationView />} />
-                 <Route path="/movies/:movieId" render={({match}) => <MovieView movie={movies.find(m => m._id === match.params.movieId)}/>}/>
-               </div>
-            </Router>
-          );
-        }
-      }
-
-            /*
+ 
         return (
             <Router>
                 <Navbar className="d-flex justify-content-between" fixed="top" variant="light" bg="light">
@@ -133,11 +111,8 @@ export class MainView extends React.Component {
                 <div className="main-view">
                     <Route exact path='/' render={() => { 
                         if (!user) return <LoginView onLoggedIn={user => this.onLoggedIn(user)} />;
-                        }}/>
-                <Media className="movie-list-view">
-                    <Route exact path='/' render={() => { 
-                        return movies.map(m => <MovieCard key={m._id} movie={m}/>)}}/>
-                </Media>         
+                        return <MoviesList movies={movies}/>;
+                        }}/>     
                     <Route exact path='/users' render={() => <RegistrationView />} />
 
                     <Route exact path="/users/:username" render={() => <ProfileView movies={movies} user={user} />} />
@@ -162,7 +137,7 @@ export class MainView extends React.Component {
         );
     }
 }
-*/
+
 
 // #3
 let mapStateToProps = state => {
@@ -172,6 +147,8 @@ let mapStateToProps = state => {
 // #4
 export default connect(mapStateToProps, { setMovies } )(MainView);
 
+/*
 LoginView.propTypes = {
     onLoggedIn: PropTypes.func.isRequired
   };
+*/

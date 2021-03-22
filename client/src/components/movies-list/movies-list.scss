@@ -1,0 +1,17 @@
+
+.filter-input {
+    width: 240px;
+    padding-left: 20px;
+    margin-bottom: -100px;
+    z-index: 2;
+}
+
+.movies-list {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: flex-start;
+    align-content: flex-start;
+    flex-wrap: wrap;
+    max-width: 100%
+}
