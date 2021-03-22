@@ -1,0 +1,25 @@
+.profile-view {
+    margin: auto;
+    width: 90%;
+  }
+
+  .update-button {
+    float: left;
+  }
+
+  .favorite-movies {
+    justify-content: center;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+  
+    @media (max-width: 800px) {
+      flex-direction: column;
+      justify-content: center;
+    }
+  }
+  
+  .favorite-movies-card-body {
+    box-shadow: 5px 6px 6px -6px rgb(93, 93, 93);
+  }
+  
