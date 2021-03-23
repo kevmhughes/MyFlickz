@@ -7,19 +7,25 @@
     float: left;
   }
 
-  .favorite-movies {
-    justify-content: center;
+  .profile-movie-list {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-  
-    @media (max-width: 800px) {
-      flex-direction: column;
-      justify-content: center;
+  }
+
+  .profile-movie-list {
+    @media (max-width: "1200px"){
+    margin-left: 0px;
+    place-content: space-evenly;
     }
+}
+  
+  
+  .profile-movie-list {
+      @media (max-width: "576px"){
+      margin-left: 0px;
+      place-content: center;
+      }
   }
   
-  .favorite-movies-card-body {
-    box-shadow: 5px 6px 6px -6px rgb(93, 93, 93);
-  }
   

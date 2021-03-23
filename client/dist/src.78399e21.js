@@ -54155,24 +54155,16 @@ var _Form = _interopRequireDefault(require("react-bootstrap/Form"));
 
 var _actions = require("../../actions/actions");
 
-var _reactBootstrap = require("react-bootstrap");
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function VisibilityFilterInput(props) {
-  return _react.default.createElement("div", {
-    className: "visibility-filter-input"
-  }, _react.default.createElement(_reactBootstrap.FormGroup, {
-    controlId: "formBasicFilterInput",
-    className: "mb-4"
-  }, _react.default.createElement(_Form.default.Control, {
-    className: "search",
+  return _react.default.createElement("div", null, _react.default.createElement(_Form.default.Control, {
     onChange: function onChange(e) {
       return props.setFilter(e.target.value);
     },
     value: props.visibilityFilter,
     placeholder: "Search by title..."
-  })));
+  }));
 }
 
 var _default = (0, _reactRedux.connect)(null, {
@@ -54180,7 +54172,7 @@ var _default = (0, _reactRedux.connect)(null, {
 })(VisibilityFilterInput);
 
 exports.default = _default;
-},{"react":"../node_modules/react/index.js","prop-types":"../node_modules/prop-types/index.js","react-redux":"../node_modules/react-redux/es/index.js","react-bootstrap/Form":"../node_modules/react-bootstrap/esm/Form.js","../../actions/actions":"actions/actions.js","react-bootstrap":"../node_modules/react-bootstrap/esm/index.js"}],"components/movie-card/movie-card.scss":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","prop-types":"../node_modules/prop-types/index.js","react-redux":"../node_modules/react-redux/es/index.js","react-bootstrap/Form":"../node_modules/react-bootstrap/esm/Form.js","../../actions/actions":"actions/actions.js"}],"components/movie-card/movie-card.scss":[function(require,module,exports) {
 var reloadCSS = require('_css_loader');
 
 module.hot.dispose(reloadCSS);
@@ -54247,16 +54239,20 @@ function (_React$Component) {
       // which, in this case, is 'MainView', as 'MianView' is what´s
       // connected to your database via the movies endpoint of your API
       var movie = this.props.movie;
-      return _react.default.createElement(_reactBootstrap.Container, {
-        className: "card-container"
+      return _react.default.createElement("div", {
+        className: "card-container",
+        style: {
+          marginRight: "20px",
+          marginBottom: "20px"
+        }
       }, _react.default.createElement(_reactBootstrap.Card, {
         className: "movie-card-body",
         style: {
-          width: '14rem'
+          width: '16rem'
         }
       }, _react.default.createElement(_reactBootstrap.Card.Img, {
         style: {
-          height: '18rem'
+          height: '22rem'
         },
         variant: "top",
         src: movie.ImagePath
@@ -54314,9 +54310,9 @@ exports.default = void 0;
 
 var _react = _interopRequireDefault(require("react"));
 
-var _propTypes = _interopRequireDefault(require("prop-types"));
-
 var _reactRedux = require("react-redux");
+
+var _reactBootstrap = require("react-bootstrap");
 
 var _visibilityFilterInput = _interopRequireDefault(require("../visibility-filter-input/visibility-filter-input"));
 
@@ -54347,13 +54343,14 @@ function MoviesList(props) {
   if (!movies) return _react.default.createElement("div", {
     className: "main-view"
   });
-  return _react.default.createElement("div", {
+  return _react.default.createElement(_reactBootstrap.Container, {
     className: "movies-list-view",
     style: {
-      marginTop: "70px"
+      paddingTop: "70px",
+      maxWidth: "1410px"
     }
-  }, _react.default.createElement("div", {
-    className: "filter-input"
+  }, _react.default.createElement(_reactBootstrap.Row, {
+    className: "filter-input-styling"
   }, _react.default.createElement(_visibilityFilterInput.default, {
     visibilityFilter: visibilityFilter
   })), _react.default.createElement("div", {
@@ -54369,25 +54366,7 @@ function MoviesList(props) {
 var _default = (0, _reactRedux.connect)(mapStateToProps)(MoviesList);
 
 exports.default = _default;
-MoviesList.propTypes = {
-  movies: _propTypes.default.arrayOf(_propTypes.default.shape({
-    _id: _propTypes.default.string,
-    Title: _propTypes.default.string,
-    ImagePath: _propTypes.default.string,
-    Description: _propTypes.default.string,
-    Genre: _propTypes.default.shape({
-      Name: _propTypes.default.string,
-      Description: _propTypes.default.string
-    }),
-    Director: _propTypes.default.shape({
-      Name: _propTypes.default.string,
-      Bio: _propTypes.default.string,
-      Birth: _propTypes.default.string,
-      Death: _propTypes.default.string
-    })
-  })).isRequired
-};
-},{"react":"../node_modules/react/index.js","prop-types":"../node_modules/prop-types/index.js","react-redux":"../node_modules/react-redux/es/index.js","../visibility-filter-input/visibility-filter-input":"components/visibility-filter-input/visibility-filter-input.jsx","../movie-card/movie-card":"components/movie-card/movie-card.jsx","./movies-list.scss":"components/movies-list/movies-list.scss"}],"components/registration-view/registration-view.scss":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","react-redux":"../node_modules/react-redux/es/index.js","react-bootstrap":"../node_modules/react-bootstrap/esm/index.js","../visibility-filter-input/visibility-filter-input":"components/visibility-filter-input/visibility-filter-input.jsx","../movie-card/movie-card":"components/movie-card/movie-card.jsx","./movies-list.scss":"components/movies-list/movies-list.scss"}],"components/registration-view/registration-view.scss":[function(require,module,exports) {
 var reloadCSS = require('_css_loader');
 
 module.hot.dispose(reloadCSS);
@@ -64886,7 +64865,7 @@ function (_React$Component) {
           return _react.default.createElement("div", {
             key: m._id,
             style: {
-              marginRight: "15px",
+              marginRight: "0px",
               marginBottom: "20px"
             }
           }, _react.default.createElement(_reactBootstrap.Card, {
@@ -64900,14 +64879,24 @@ function (_React$Component) {
             },
             variant: "top",
             src: m.ImagePath
-          }), _react.default.createElement(_reactBootstrap.Card.Body, null, _react.default.createElement(_reactRouterDom.Link, {
+          }), _react.default.createElement(_reactBootstrap.Card.Body, {
+            className: "movie-card-body"
+          }, _react.default.createElement(_reactRouterDom.Link, {
             to: "/movies/".concat(m._id),
             style: {
               textDecoration: "none"
             }
-          }, _react.default.createElement(_reactBootstrap.Card.Title, null, m.Title)), _react.default.createElement(_reactBootstrap.Card.Subtitle, {
+          }, _react.default.createElement(_reactBootstrap.Card.Title, {
+            style: {
+              height: '3rem'
+            }
+          }, m.Title)), _react.default.createElement(_reactBootstrap.Card.Subtitle, {
             className: "text-muted"
-          }, m.Genre.Name), _react.default.createElement(_reactBootstrap.Card.Text, null, m.Description.substring(0, 90), "..."), _react.default.createElement(_reactRouterDom.Link, {
+          }, m.Genre.Name), _react.default.createElement(_reactBootstrap.Card.Text, {
+            style: {
+              height: '120px'
+            }
+          }, m.Description.substring(0, 90), "..."), _react.default.createElement(_reactRouterDom.Link, {
             to: "/movies/".concat(m._id)
           }, _react.default.createElement(_reactBootstrap.Button, {
             variant: "primary",
@@ -65046,7 +65035,7 @@ function (_React$Component) {
           return _react.default.createElement("div", {
             key: m._id,
             style: {
-              marginRight: "15px",
+              marginRight: "0px",
               marginBottom: "20px"
             }
           }, _react.default.createElement(_reactBootstrap.Card, {
@@ -65060,14 +65049,24 @@ function (_React$Component) {
             },
             variant: "top",
             src: m.ImagePath
-          }), _react.default.createElement(_reactBootstrap.Card.Body, null, _react.default.createElement(_reactRouterDom.Link, {
+          }), _react.default.createElement(_reactBootstrap.Card.Body, {
+            className: "movie-card-body"
+          }, _react.default.createElement(_reactRouterDom.Link, {
             to: "/movies/".concat(m._id),
             style: {
               textDecoration: "none"
             }
-          }, _react.default.createElement(_reactBootstrap.Card.Title, null, m.Title)), _react.default.createElement(_reactBootstrap.Card.Subtitle, {
+          }, _react.default.createElement(_reactBootstrap.Card.Title, {
+            style: {
+              height: '3rem'
+            }
+          }, m.Title)), _react.default.createElement(_reactBootstrap.Card.Subtitle, {
             className: "text-muted"
-          }, m.Genre.Name), _react.default.createElement(_reactBootstrap.Card.Text, null, m.Description.substring(0, 90), "..."), _react.default.createElement(_reactRouterDom.Link, {
+          }, m.Genre.Name), _react.default.createElement(_reactBootstrap.Card.Text, {
+            style: {
+              height: '120px'
+            }
+          }, m.Description.substring(0, 90), "..."), _react.default.createElement(_reactRouterDom.Link, {
             to: "/movies/".concat(m._id)
           }, _react.default.createElement(_reactBootstrap.Button, {
             variant: "primary",
@@ -65090,7 +65089,12 @@ DirectorView.propTypes = {
     Death: _propTypes.default.string
   }).isRequired
 };
-},{"react":"../node_modules/react/index.js","prop-types":"../node_modules/prop-types/index.js","react-bootstrap":"../node_modules/react-bootstrap/esm/index.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","@fortawesome/react-fontawesome":"../node_modules/@fortawesome/react-fontawesome/index.es.js","@fortawesome/free-solid-svg-icons":"../node_modules/@fortawesome/free-solid-svg-icons/index.es.js","./director-view.scss":"components/director-view/director-view.scss"}],"components/profile-view/profile-view.jsx":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","prop-types":"../node_modules/prop-types/index.js","react-bootstrap":"../node_modules/react-bootstrap/esm/index.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","@fortawesome/react-fontawesome":"../node_modules/@fortawesome/react-fontawesome/index.es.js","@fortawesome/free-solid-svg-icons":"../node_modules/@fortawesome/free-solid-svg-icons/index.es.js","./director-view.scss":"components/director-view/director-view.scss"}],"components/profile-view/profile-view.scss":[function(require,module,exports) {
+var reloadCSS = require('_css_loader');
+
+module.hot.dispose(reloadCSS);
+module.hot.accept(reloadCSS);
+},{"_css_loader":"../../../../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/css-loader.js"}],"components/profile-view/profile-view.jsx":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -65109,6 +65113,8 @@ var _reactRouterDom = require("react-router-dom");
 var _reactFontawesome = require("@fortawesome/react-fontawesome");
 
 var _freeSolidSvgIcons = require("@fortawesome/free-solid-svg-icons");
+
+require("./profile-view.scss");
 
 var _axios = _interopRequireDefault(require("axios"));
 
@@ -65352,7 +65358,7 @@ function (_React$Component) {
           },
           onClick: this.changeUserView
         }, "Go back"))), _react.default.createElement("div", {
-          className: "d-flex row mt-3",
+          className: "profile-movie-list d-flex row mt-3",
           style: {
             marginLeft: "0px"
           }
@@ -65361,7 +65367,7 @@ function (_React$Component) {
         }, _react.default.createElement("h5", null, "No favourite movies have been added yet.")), favoriteMovies.length > 0 ? favoriteMovieList.map(function (m) {
           return _react.default.createElement(_reactBootstrap.Card, {
             key: m._id,
-            className: "favorite-movies-card-body card",
+            className: "movie-card-body card",
             style: {
               minWidth: "16rem",
               maxWidth: '16rem',
@@ -65372,24 +65378,30 @@ function (_React$Component) {
             variant: "top",
             src: m.ImagePath,
             style: {
-              maxHeight: '21rem'
+              maxHeight: '22rem'
             }
           }), _react.default.createElement(_reactBootstrap.Card.Body, {
             className: "favorite-card-body",
             style: {
               padding: '20px'
             }
+          }, _react.default.createElement(_reactRouterDom.Link, {
+            to: "/movies/".concat(m._id),
+            style: {
+              textDecoration: "none",
+              textAlign: "center",
+              color: "black"
+            }
           }, _react.default.createElement(_reactBootstrap.Card.Title, {
             style: {
               height: '3rem'
-            },
-            align: "center"
-          }, m.Title), _react.default.createElement(_reactBootstrap.Button, {
+            }
+          }, m.Title)), _react.default.createElement(_reactBootstrap.Button, {
             onClick: function onClick(e) {
               return _this4.removeFavoriteMovie(m._id);
             },
             variant: "outline-primary",
-            size: "lg",
+            size: "sm",
             block: true
           }, "Remove")));
         }) : ""))));
@@ -65562,7 +65574,7 @@ ProfileView.propTypes = {
     })
   })).isRequired
 };
-},{"react":"../node_modules/react/index.js","prop-types":"../node_modules/prop-types/index.js","react-bootstrap":"../node_modules/react-bootstrap/esm/index.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","@fortawesome/react-fontawesome":"../node_modules/@fortawesome/react-fontawesome/index.es.js","@fortawesome/free-solid-svg-icons":"../node_modules/@fortawesome/free-solid-svg-icons/index.es.js","axios":"../node_modules/axios/index.js"}],"components/main-view/main-view.jsx":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","prop-types":"../node_modules/prop-types/index.js","react-bootstrap":"../node_modules/react-bootstrap/esm/index.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","@fortawesome/react-fontawesome":"../node_modules/@fortawesome/react-fontawesome/index.es.js","@fortawesome/free-solid-svg-icons":"../node_modules/@fortawesome/free-solid-svg-icons/index.es.js","./profile-view.scss":"components/profile-view/profile-view.scss","axios":"../node_modules/axios/index.js"}],"components/main-view/main-view.jsx":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {

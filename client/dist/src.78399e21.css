@@ -30,10 +30,10 @@
 .movie-card-body {
   box-shadow: 0px 6px 6px -6px #5d5d5d;
 }
-.filter-input {
+.filter-input-styling {
   width: 240px;
-  padding-left: 20px;
-  margin-bottom: -100px;
+  padding-left: 15px;
+  margin-bottom: 20px;
 }
 
 .movies-list {
@@ -44,6 +44,13 @@
   align-content: flex-start;
   flex-wrap: wrap;
   max-width: 100%;
+}
+
+@media (max-width: 1420px) {
+  .movies-list {
+    margin-left: 0px;
+    place-content: space-evenly;
+  }
 }
 .registration-view {
   flex: none;
@@ -98,6 +105,13 @@
   }
 }
 
+@media (max-width: 1420px) {
+  .genre-movie-list {
+    margin-left: 0px;
+    place-content: space-evenly;
+  }
+}
+
 @media (max-width: 576px) {
   .some-movies-genre {
     margin-left: 20px;
@@ -122,6 +136,13 @@
   }
 }
 
+@media (max-width: 1420px) {
+  .director-movie-list {
+    margin-left: 0px;
+    place-content: space-evenly;
+  }
+}
+
 @media (max-width: 576px) {
   .some-movies-director {
     margin-left: 20px;
@@ -130,6 +151,34 @@
 
 .label {
   font-weight: bold;
+}
+.profile-view {
+  margin: auto;
+  width: 90%;
+}
+
+.update-button {
+  float: left;
+}
+
+.profile-movie-list {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 1200px) {
+  .profile-movie-list {
+    margin-left: 0px;
+    place-content: space-evenly;
+  }
+}
+
+@media (max-width: 576px) {
+  .profile-movie-list {
+    margin-left: 0px;
+    place-content: center;
+  }
 }
 .my-flix {
   color: steelblue;

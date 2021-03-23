@@ -55,15 +55,15 @@ export class GenreView extends React.Component {
               {movies.map(m => {
                 if (m.Genre.Name === genre.Name) {
                   return (
-                    <div key={m._id} style={{ marginRight: "15px", marginBottom: "20px" }} >
+                    <div key={m._id} style={{ marginRight: "0px", marginBottom: "20px" }} >
                       <Card className="cards mb-3 mr-2" style={{ width: '16rem' }} >
                         <Card.Img style={{ height: '22rem'}} variant="top" src={m.ImagePath} />
-                        <Card.Body>
+                        <Card.Body className="movie-card-body">
                         <Link to={`/movies/${m._id}`} style={{ textDecoration: "none" }}>
-                          <Card.Title>{m.Title}</Card.Title>
+                          <Card.Title style={{ height: '3rem'}}>{m.Title}</Card.Title>
                         </Link>
                           <Card.Subtitle className="text-muted">{m.Genre.Name}</Card.Subtitle>
-                          <Card.Text>{m.Description.substring(0, 90)}...</Card.Text>
+                          <Card.Text style={{ height: '120px'}}>{m.Description.substring(0, 90)}...</Card.Text>
                           <Link to={`/movies/${m._id}`}>
                             <Button variant="primary" size="sm" >Read more</Button>
                           </Link>

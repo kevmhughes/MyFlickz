@@ -1,8 +1,8 @@
 
-.filter-input {
+.filter-input-styling {
     width: 240px;
-    padding-left: 20px;
-    margin-bottom: -100px;
+    padding-left: 15px;
+    margin-bottom: 20px;
 }
 
 .movies-list {
@@ -12,5 +12,12 @@
     align-items: flex-start;
     align-content: flex-start;
     flex-wrap: wrap;
-    max-width: 100%
+    max-width: 100%;
+}
+
+.movies-list {
+    @media (max-width: "1420px"){
+    margin-left: 0px;
+    place-content: space-evenly;
+    }
 }

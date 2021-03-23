@@ -4,6 +4,7 @@ import { Spinner, Row, Col, Form, Button, Container, Card } from 'react-bootstra
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
+import './profile-view.scss';
 
 import axios from 'axios';
 
@@ -180,15 +181,17 @@ render() {
                 </Col>
               </Row> 
 
-                <div className="d-flex row mt-3" style={{marginLeft: "0px"}}>
+                <div className="profile-movie-list d-flex row mt-3" style={{marginLeft: "0px"}}>
                   {favoriteMovies.length === 0 && <div className="values favorite-movies"><h5>No favourite movies have been added yet.</h5></div>}
                   {(favoriteMovies.length > 0) ? (favoriteMovieList.map(m => 
                   (
-                      <Card  key={m._id} className="favorite-movies-card-body card" style={{ minWidth: "16rem", maxWidth: '16rem', marginRight: "15px", marginBottom: "20px"  }}>
-                      <Card.Img variant="top" src={m.ImagePath} style={{ maxHeight: '21rem' }} />
+                      <Card  key={m._id} className="movie-card-body card" style={{ minWidth: "16rem", maxWidth: '16rem', marginRight: "15px", marginBottom: "20px"  }}>
+                      <Card.Img variant="top" src={m.ImagePath} style={{ maxHeight: '22rem' }} />
                       <Card.Body className="favorite-card-body" style={{ padding: '20px' }}>
-                        <Card.Title style={{ height: '3rem'}} align="center">{m.Title}</Card.Title>
-                        <Button onClick={e => this.removeFavoriteMovie(m._id)} variant="outline-primary" size="lg" block >Remove</Button>
+                      <Link to={`/movies/${m._id}`} style={{ textDecoration: "none", textAlign: "center", color: "black" }}>
+                        <Card.Title style={{ height: '3rem'}}>{m.Title}</Card.Title>
+                      </Link>
+                      <Button onClick={e => this.removeFavoriteMovie(m._id)} variant="outline-primary" size="sm" block >Remove</Button>
                       </Card.Body>
                       </Card>
                       ))) : ""}
