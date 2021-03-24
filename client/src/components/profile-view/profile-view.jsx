@@ -284,11 +284,11 @@ render() {
                   name="password"
                   value={null}
                   onChange={this.changeHandler}
-                  required 
+                  required minLength={5} 
                   placeholder="Enter Password"
                 />
                 <Form.Control.Feedback type="invalid">
-                Please provide a password.
+                Password must include at least 5 characters.
                 </Form.Control.Feedback>
               </Form.Group>
 
