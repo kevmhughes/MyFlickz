@@ -54265,9 +54265,14 @@ function (_React$Component) {
         style: {
           height: '3rem'
         }
-      }, movie.Title)), _react.default.createElement(_reactBootstrap.Card.Subtitle, {
+      }, movie.Title)), _react.default.createElement(_reactRouterDom.Link, {
+        to: "/genres/".concat(movie.Genre.Name),
+        style: {
+          textDecoration: "none"
+        }
+      }, _react.default.createElement(_reactBootstrap.Card.Subtitle, {
         className: "text-muted"
-      }, movie.Genre.Name), _react.default.createElement(_reactBootstrap.Card.Text, {
+      }, movie.Genre.Name)), _react.default.createElement(_reactBootstrap.Card.Text, {
         style: {
           height: '120px'
         }
@@ -54428,17 +54433,30 @@ function RegistrationView(props) {
       birthday = _useState8[0],
       setBirthday = _useState8[1];
 
+  var _useState9 = (0, _react.useState)(''),
+      _useState10 = _slicedToArray(_useState9, 2),
+      validated = _useState10[0],
+      setValidated = _useState10[1];
+
   var handleSubmit = function handleSubmit(e) {
     e.preventDefault();
-    console.log(username, password, email, birthday);
-    var newUser = {
+    console.log(username, password, email, birthday, validated);
+    var form = e.currentTarget;
+
+    if (form.checkValidity() === false) {
+      event.stopPropagation();
+    } else {
+      {
+        setValidated(true);
+      }
+    }
+
+    _axios.default.post('https://myflickz.herokuapp.com/users', {
       Username: username,
       Password: password,
       Email: email,
       Birthday: birthday
-    };
-
-    _axios.default.post('https://myflickz.herokuapp.com/users', newUser).then(function (response) {
+    }).then(function (response) {
       var data = response.data;
       console.log(data);
       alert('User created successfully.');
@@ -54478,43 +54496,65 @@ function RegistrationView(props) {
     md: 6,
     lg: 4,
     className: "form-container"
-  }, _react.default.createElement(_reactBootstrap.Form, null, _react.default.createElement(_reactBootstrap.Form.Group, {
+  }, _react.default.createElement(_reactBootstrap.Form, {
+    noValidate: true,
+    validated: setValidated,
+    onSubmit: handleSubmit
+  }, _react.default.createElement(_reactBootstrap.Form.Group, {
     controlId: "formBasicUsername"
   }, _react.default.createElement(_reactBootstrap.Form.Label, null, "Username"), _react.default.createElement(_reactBootstrap.Form.Control, {
+    size: "sm",
     type: "text",
     placeholder: "Enter username",
     value: username,
+    required: true,
+    minLength: 5,
+    pattern: "[a-zA-Z0-9]+",
     onChange: function onChange(e) {
       return setUsername(e.target.value);
     }
-  })), _react.default.createElement(_reactBootstrap.Form.Group, {
+  }), _react.default.createElement(_reactBootstrap.Form.Control.Feedback, {
+    type: "invalid"
+  }, "Username must be alphanumeric and include at least 5 characters.")), _react.default.createElement(_reactBootstrap.Form.Group, {
     controlId: "formBasicPassword"
   }, _react.default.createElement(_reactBootstrap.Form.Label, null, "Password"), _react.default.createElement(_reactBootstrap.Form.Control, {
+    size: "sm",
     type: "password",
     placeholder: "Enter password",
     value: password,
+    required: true,
+    minLength: 5,
     onChange: function onChange(e) {
       return setPassword(e.target.value);
     }
-  })), _react.default.createElement(_reactBootstrap.Form.Group, {
+  }), _react.default.createElement(_reactBootstrap.Form.Control.Feedback, {
+    type: "invalid"
+  }, "Password must include at least 5 characters.")), _react.default.createElement(_reactBootstrap.Form.Group, {
     controlId: "formBasicEmail"
   }, _react.default.createElement(_reactBootstrap.Form.Label, null, "Email"), _react.default.createElement(_reactBootstrap.Form.Control, {
+    size: "sm",
     type: "email",
     placeholder: "Enter email",
     value: email,
+    required: true,
     onChange: function onChange(e) {
       return setEmail(e.target.value);
     }
-  })), _react.default.createElement(_reactBootstrap.Form.Group, {
+  }), _react.default.createElement(_reactBootstrap.Form.Control.Feedback, {
+    type: "invalid"
+  }, "Please provide a valid email address.")), _react.default.createElement(_reactBootstrap.Form.Group, {
     controlId: "formBasicBirthday"
   }, _react.default.createElement(_reactBootstrap.Form.Label, null, "Birthday"), _react.default.createElement(_reactBootstrap.Form.Control, {
+    size: "sm",
     type: "date",
     placeholder: "Enter date of birth",
     value: birthday,
     onChange: function onChange(e) {
       return setBirthday(e.target.value);
     }
-  })), _react.default.createElement(_reactRouterDom.Link, {
+  }), _react.default.createElement(_reactBootstrap.Form.Control.Feedback, {
+    type: "invalid"
+  }, "Please provide a valid date (e.g. 01/01/1970)")), _react.default.createElement(_reactRouterDom.Link, {
     to: "/client"
   }, _react.default.createElement(_reactBootstrap.Button, {
     variant: "primary",
@@ -54627,6 +54667,7 @@ function LoginView(props) {
     controlId: "formBasicUsername"
   }, _react.default.createElement(_reactBootstrap.Form.Label, null, "Username"), _react.default.createElement(_reactBootstrap.Form.Control, {
     type: "username",
+    size: "sm",
     placeholder: "Enter username",
     value: username,
     onChange: function onChange(e) {
@@ -54636,6 +54677,7 @@ function LoginView(props) {
     controlId: "formBasicPassword"
   }, _react.default.createElement(_reactBootstrap.Form.Label, null, "Password"), _react.default.createElement(_reactBootstrap.Form.Control, {
     type: "password",
+    size: "sm",
     placeholder: "Enter password",
     value: password,
     onChange: function onChange(e) {
@@ -64890,9 +64932,14 @@ function (_React$Component) {
             style: {
               height: '3rem'
             }
-          }, m.Title)), _react.default.createElement(_reactBootstrap.Card.Subtitle, {
+          }, m.Title)), _react.default.createElement(_reactRouterDom.Link, {
+            to: "/genres/".concat(m.Genre.Name),
+            style: {
+              textDecoration: "none"
+            }
+          }, _react.default.createElement(_reactBootstrap.Card.Subtitle, {
             className: "text-muted"
-          }, m.Genre.Name), _react.default.createElement(_reactBootstrap.Card.Text, {
+          }, m.Genre.Name)), _react.default.createElement(_reactBootstrap.Card.Text, {
             style: {
               height: '120px'
             }
@@ -65060,9 +65107,14 @@ function (_React$Component) {
             style: {
               height: '3rem'
             }
-          }, m.Title)), _react.default.createElement(_reactBootstrap.Card.Subtitle, {
+          }, m.Title)), _react.default.createElement(_reactRouterDom.Link, {
+            to: "/genres/".concat(m.Genre.Name),
+            style: {
+              textDecoration: "none"
+            }
+          }, _react.default.createElement(_reactBootstrap.Card.Subtitle, {
             className: "text-muted"
-          }, m.Genre.Name), _react.default.createElement(_reactBootstrap.Card.Text, {
+          }, m.Genre.Name)), _react.default.createElement(_reactBootstrap.Card.Text, {
             style: {
               height: '120px'
             }
@@ -65484,6 +65536,19 @@ function (_React$Component) {
       }), _react.default.createElement(_reactBootstrap.Form.Control.Feedback, {
         type: "invalid"
       }, "Username must be alphanumeric and include at least 5 characters.")), _react.default.createElement(_reactBootstrap.Form.Group, {
+        controlId: "formBasicPassword"
+      }, _react.default.createElement(_reactBootstrap.Form.Label, null, "Password"), _react.default.createElement(_reactBootstrap.Form.Control, {
+        size: "sm",
+        type: "password",
+        name: "password",
+        value: undefined,
+        onChange: this.changeHandler,
+        required: true,
+        minLength: 5,
+        placeholder: "Enter Password"
+      }), _react.default.createElement(_reactBootstrap.Form.Control.Feedback, {
+        type: "invalid"
+      }, "Password must include at least 5 characters.")), _react.default.createElement(_reactBootstrap.Form.Group, {
         controlId: "formBasicEmail"
       }, _react.default.createElement(_reactBootstrap.Form.Label, null, "Email"), _react.default.createElement(_reactBootstrap.Form.Control, {
         size: "sm",
@@ -65496,19 +65561,6 @@ function (_React$Component) {
       }), _react.default.createElement(_reactBootstrap.Form.Control.Feedback, {
         type: "invalid"
       }, "Please provide a valid email address.")), _react.default.createElement(_reactBootstrap.Form.Group, {
-        controlId: "formBasicPassword"
-      }, _react.default.createElement(_reactBootstrap.Form.Label, null, "Password"), _react.default.createElement(_reactBootstrap.Form.Control, {
-        size: "sm",
-        type: "password",
-        name: "password",
-        value: null,
-        onChange: this.changeHandler,
-        required: true,
-        minLength: 5,
-        placeholder: "Enter Password"
-      }), _react.default.createElement(_reactBootstrap.Form.Control.Feedback, {
-        type: "invalid"
-      }, "Password must include at least 5 characters.")), _react.default.createElement(_reactBootstrap.Form.Group, {
         controlId: "formBasicBirthday"
       }, _react.default.createElement(_reactBootstrap.Form.Label, null, "Birthday"), _react.default.createElement(_reactBootstrap.Form.Control, {
         size: "sm",
@@ -65516,7 +65568,6 @@ function (_React$Component) {
         name: "birthday",
         value: this.state.birthday,
         onChange: this.changeHandler,
-        required: true,
         placeholder: "Enter Birthday"
       }), _react.default.createElement(_reactBootstrap.Form.Control.Feedback, {
         type: "invalid"
@@ -66009,7 +66060,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "56512" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "61523" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

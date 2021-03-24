@@ -62,11 +62,13 @@ export class GenreView extends React.Component {
                         <Link to={`/movies/${m._id}`} style={{ textDecoration: "none" }}>
                           <Card.Title style={{ height: '3rem'}}>{m.Title}</Card.Title>
                         </Link>
+                        <Link to={`/genres/${m.Genre.Name}`} style={{ textDecoration: "none" }}>
                           <Card.Subtitle className="text-muted">{m.Genre.Name}</Card.Subtitle>
-                          <Card.Text style={{ height: '120px'}}>{m.Description.substring(0, 90)}...</Card.Text>
-                          <Link to={`/movies/${m._id}`}>
-                            <Button variant="primary" size="sm" >Read more</Button>
-                          </Link>
+                        </Link>
+                        <Card.Text style={{ height: '120px'}}>{m.Description.substring(0, 90)}...</Card.Text>
+                        <Link to={`/movies/${m._id}`}>
+                          <Button variant="primary" size="sm" >Read more</Button>
+                        </Link>
                         </Card.Body>
                       </Card>
                     </div>

@@ -261,6 +261,22 @@ render() {
                 </Form.Control.Feedback>
               </Form.Group>
 
+              <Form.Group controlId="formBasicPassword">
+                <Form.Label>Password</Form.Label>
+                <Form.Control
+                  size="sm"
+                  type="password"
+                  name="password"
+                  value={undefined}
+                  onChange={this.changeHandler}
+                  required minLength={5} 
+                  placeholder="Enter Password"
+                />
+                <Form.Control.Feedback type="invalid">
+                Password must include at least 5 characters.
+                </Form.Control.Feedback>
+              </Form.Group>
+
               <Form.Group controlId="formBasicEmail">
                 <Form.Label>Email</Form.Label>
                 <Form.Control
@@ -276,22 +292,6 @@ render() {
                 </Form.Control.Feedback>
               </Form.Group>
 
-              <Form.Group controlId="formBasicPassword">
-                <Form.Label>Password</Form.Label>
-                <Form.Control
-                  size="sm"
-                  type="password"
-                  name="password"
-                  value={null}
-                  onChange={this.changeHandler}
-                  required minLength={5} 
-                  placeholder="Enter Password"
-                />
-                <Form.Control.Feedback type="invalid">
-                Password must include at least 5 characters.
-                </Form.Control.Feedback>
-              </Form.Group>
-
               <Form.Group controlId="formBasicBirthday" >
                 <Form.Label>Birthday</Form.Label>
                 <Form.Control
@@ -300,7 +300,6 @@ render() {
                   name="birthday"
                   value={this.state.birthday}
                   onChange={this.changeHandler}
-                  required
                   placeholder="Enter Birthday"
                 />
                 <Form.Control.Feedback type="invalid">
@@ -329,11 +328,9 @@ render() {
                 onClick={e => this.handleSubmit(e)}>
                   Update
                 </Button>
-
-                
-                
               </div>
               <br />
+              
             </Form>
           </Col>
           <Col style={{maxWidth: "20%", paddingTop: "32px"}}>

@@ -20,11 +20,13 @@ export class MovieCard extends React.Component {
                       <Link to={`/movies/${movie._id}`} style={{ textDecoration: "none" }}>
                         <Card.Title style={{ height: '3rem'}}>{movie.Title}</Card.Title>
                       </Link>
+                      <Link to={`/genres/${movie.Genre.Name}`} style={{ textDecoration: "none" }}>
                         <Card.Subtitle className="text-muted">{movie.Genre.Name}</Card.Subtitle>
-                        <Card.Text style={{ height: '120px'}}>{movie.Description.substring(0, 90)}...</Card.Text>
-                        <Link to={`/movies/${movie._id}`}>
-                            <Button variant="primary" size="sm">Open</Button>
-                        </Link>
+                      </Link>
+                      <Card.Text style={{ height: '120px'}}>{movie.Description.substring(0, 90)}...</Card.Text>
+                      <Link to={`/movies/${movie._id}`}>
+                        <Button variant="primary" size="sm">Open</Button>
+                      </Link>
                     </Card.Body>
                 </Card>
         </div>
