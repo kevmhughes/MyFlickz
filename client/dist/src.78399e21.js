@@ -65504,10 +65504,11 @@ function (_React$Component) {
         value: null,
         onChange: this.changeHandler,
         required: true,
+        minLength: 5,
         placeholder: "Enter Password"
       }), _react.default.createElement(_reactBootstrap.Form.Control.Feedback, {
         type: "invalid"
-      }, "Please provide a password.")), _react.default.createElement(_reactBootstrap.Form.Group, {
+      }, "Password must include at least 5 characters.")), _react.default.createElement(_reactBootstrap.Form.Group, {
         controlId: "formBasicBirthday"
       }, _react.default.createElement(_reactBootstrap.Form.Label, null, "Birthday"), _react.default.createElement(_reactBootstrap.Form.Control, {
         size: "sm",
@@ -66008,7 +66009,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "56921" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "56512" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
