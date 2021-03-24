@@ -4,7 +4,7 @@ import axios from 'axios';
 import { connect } from 'react-redux';
 
 import PropTypes from 'prop-types';
-import { Navbar, Nav, Button } from 'react-bootstrap';
+import { Spinner, Navbar, Nav, Button } from 'react-bootstrap';
 import { BrowserRouter as Router, Route} from "react-router-dom";
 import './main-view.scss';
 
@@ -30,6 +30,7 @@ export class MainView extends React.Component {
         // so that we can destructure it later
         this.state = {
             user: null,
+            isLoading: true,
         };
 
     }
@@ -58,6 +59,8 @@ export class MainView extends React.Component {
     onLogOut() {
         localStorage.removeItem("token"); //, authData.token);
         localStorage.removeItem("user"); //, authData.user.Username);
+        this.setState({isLoading: false, user: null });
+        window.open('/', '_self');
       }
     
     getMovies(token) {
@@ -67,6 +70,7 @@ export class MainView extends React.Component {
         .then(response => {
             // #1
             this.props.setMovies(response.data);
+            this.setState({isLoading: false });
         })
         .catch(function (error) {
             console.log(error);
@@ -106,8 +110,6 @@ export class MainView extends React.Component {
                             </div>
                         </Nav>
                 </Navbar>
-            
-                
                 <div className="main-view">
                     <Route exact path='/' render={() => { 
                         if (!user) return <LoginView onLoggedIn={user => this.onLoggedIn(user)} />;

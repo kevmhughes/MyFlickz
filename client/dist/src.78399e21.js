@@ -65165,6 +65165,7 @@ function (_React$Component) {
       password: "",
       email: "",
       birthday: "",
+      validated: "",
       favoriteMovies: []
     };
     _this.handleSubmit = _this.handleSubmit.bind(_assertThisInitialized(_this));
@@ -65201,7 +65202,7 @@ function (_React$Component) {
           user: response.data,
           isLoading: false,
           username: response.data.Username,
-          password: response.data.Password,
+          password: null,
           email: response.data.Email,
           birthday: response.data.Birthday,
           favoriteMovies: response.data.FavoriteMovies
@@ -65278,8 +65279,21 @@ function (_React$Component) {
     value: function handleSubmit(e) {
       var _this3 = this;
 
-      e.preventDefault();
+      e.preventDefault(); //handles form validation
+
       console.log(this.state);
+      var form = e.currentTarget;
+
+      if (form.checkValidity() === false) {
+        event.stopPropagation();
+      } else {
+        this.setState({
+          validated: true
+        });
+      } // notify that fields were validated,
+      // therefore feedback can be shown
+      // (otherwise it will appear at page load)
+
 
       _axios.default.put("https://myflickz.herokuapp.com/users/".concat(localStorage.getItem("user")), {
         Username: this.state.username,
@@ -65316,11 +65330,7 @@ function (_React$Component) {
       console.log(this.state); //favoriteMovies view
 
       if (userView === true) {
-        return _react.default.createElement(_reactBootstrap.Container, null, _react.default.createElement("div", null, this.state.isLoading ? _react.default.createElement("div", {
-          className: "justify-content-center"
-        }, _react.default.createElement(_reactBootstrap.Spinner, {
-          animation: "border"
-        })) : _react.default.createElement("div", null, _react.default.createElement(_reactRouterDom.Link, {
+        return _react.default.createElement(_reactBootstrap.Container, null, _react.default.createElement(_reactRouterDom.Link, {
           to: "",
           onClick: function onClick() {
             return history.back();
@@ -65404,7 +65414,7 @@ function (_React$Component) {
             size: "sm",
             block: true
           }, "Remove")));
-        }) : ""))));
+        }) : ""));
       } //update user view
 
 
@@ -65455,7 +65465,11 @@ function (_React$Component) {
         md: 7,
         lg: 5,
         className: "form-container"
-      }, _react.default.createElement(_reactBootstrap.Form, null, _react.default.createElement(_reactBootstrap.Form.Group, {
+      }, _react.default.createElement(_reactBootstrap.Form, {
+        noValidate: true,
+        validated: this.state.validated,
+        onSubmit: this.handleSubmit
+      }, _react.default.createElement(_reactBootstrap.Form.Group, {
         controlId: "formBasicUsername"
       }, _react.default.createElement(_reactBootstrap.Form.Label, null, "Username"), _react.default.createElement(_reactBootstrap.Form.Control, {
         size: "sm",
@@ -65464,10 +65478,12 @@ function (_React$Component) {
         value: this.state.username,
         onChange: this.changeHandler,
         required: true,
+        minLength: 5,
+        pattern: "[a-zA-Z0-9]+",
         placeholder: "Enter Username"
       }), _react.default.createElement(_reactBootstrap.Form.Control.Feedback, {
         type: "invalid"
-      }, "Enter a User name")), _react.default.createElement(_reactBootstrap.Form.Group, {
+      }, "Username must be alphanumeric and include at least 5 characters.")), _react.default.createElement(_reactBootstrap.Form.Group, {
         controlId: "formBasicEmail"
       }, _react.default.createElement(_reactBootstrap.Form.Label, null, "Email"), _react.default.createElement(_reactBootstrap.Form.Control, {
         size: "sm",
@@ -65479,19 +65495,19 @@ function (_React$Component) {
         placeholder: "Enter Email"
       }), _react.default.createElement(_reactBootstrap.Form.Control.Feedback, {
         type: "invalid"
-      }, "\"Please provide a valid email address.\"")), _react.default.createElement(_reactBootstrap.Form.Group, {
+      }, "Please provide a valid email address.")), _react.default.createElement(_reactBootstrap.Form.Group, {
         controlId: "formBasicPassword"
       }, _react.default.createElement(_reactBootstrap.Form.Label, null, "Password"), _react.default.createElement(_reactBootstrap.Form.Control, {
         size: "sm",
         type: "password",
         name: "password",
-        value: this.state.password,
+        value: null,
         onChange: this.changeHandler,
         required: true,
         placeholder: "Enter Password"
       }), _react.default.createElement(_reactBootstrap.Form.Control.Feedback, {
         type: "invalid"
-      }, "\"Please provide a valid email address.\"")), _react.default.createElement(_reactBootstrap.Form.Group, {
+      }, "Please provide a password.")), _react.default.createElement(_reactBootstrap.Form.Group, {
         controlId: "formBasicBirthday"
       }, _react.default.createElement(_reactBootstrap.Form.Label, null, "Birthday"), _react.default.createElement(_reactBootstrap.Form.Control, {
         size: "sm",
@@ -65503,7 +65519,7 @@ function (_React$Component) {
         placeholder: "Enter Birthday"
       }), _react.default.createElement(_reactBootstrap.Form.Control.Feedback, {
         type: "invalid"
-      }, "\"Please provide a valid date (e.g. 01/01/1970)\"")), _react.default.createElement("div", null, _react.default.createElement(_reactBootstrap.Button, {
+      }, "Please provide a valid date (e.g. 01/01/1970)")), _react.default.createElement("div", null, _react.default.createElement(_reactBootstrap.Button, {
         className: "fave-view-button btn-lg",
         variant: "outline-primary",
         type: "submit",
@@ -65525,11 +65541,7 @@ function (_React$Component) {
         onClick: function onClick(e) {
           return _this4.handleSubmit(e);
         }
-      }, "Update")), _react.default.createElement("br", null)), _react.default.createElement(_reactBootstrap.Row, {
-        className: "justify-content-center"
-      }, this.state.isLoading ? _react.default.createElement("div", null, _react.default.createElement(_reactBootstrap.Spinner, {
-        animation: "border"
-      })) : _react.default.createElement("div", null))), _react.default.createElement(_reactBootstrap.Col, {
+      }, "Update")), _react.default.createElement("br", null))), _react.default.createElement(_reactBootstrap.Col, {
         style: {
           maxWidth: "20%",
           paddingTop: "32px"
@@ -65654,7 +65666,8 @@ function (_React$Component) {
     // so that we can destructure it later
 
     _this.state = {
-      user: null
+      user: null,
+      isLoading: true
     };
     return _this;
   }
@@ -65689,6 +65702,12 @@ function (_React$Component) {
       localStorage.removeItem("token"); //, authData.token);
 
       localStorage.removeItem("user"); //, authData.user.Username);
+
+      this.setState({
+        isLoading: false,
+        user: null
+      });
+      window.open('/', '_self');
     }
   }, {
     key: "getMovies",
@@ -65702,6 +65721,10 @@ function (_React$Component) {
       }).then(function (response) {
         // #1
         _this2.props.setMovies(response.data);
+
+        _this2.setState({
+          isLoading: false
+        });
       }).catch(function (error) {
         console.log(error);
       });
@@ -65985,7 +66008,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "64695" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "56921" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

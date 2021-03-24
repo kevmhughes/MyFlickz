@@ -27,6 +27,10 @@
 .logout-button {
   margin-right: 10px;
 }
+
+.spinner {
+  height: 1000px;
+}
 .movie-card-body {
   box-shadow: 0px 6px 6px -6px #5d5d5d;
 }

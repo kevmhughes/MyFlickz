@@ -1,16 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Container, Button, Card} from 'react-bootstrap';
+import { Spinner, Button, Card} from 'react-bootstrap';
 import { Link } from "react-router-dom";
 import './movie-card.scss';
 
 export class MovieCard extends React.Component {
+
     render() {
         // This is given to the <MovieCard/> component by the outer world
         // which, in this case, is 'MainView', as 'MianView' is what´s
         // connected to your database via the movies endpoint of your API
         const { movie } = this.props;
-        
+    
         return (
         <div className="card-container" style={{ marginRight: "20px", marginBottom: "20px" }}>
                 <Card className="movie-card-body" style={{ width: '16rem'}}>

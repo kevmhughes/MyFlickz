@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from "prop-types";
-import { Spinner, Row, Col, Form, Button, Container, Card } from 'react-bootstrap';
+import { Row, Col, Form, Button, Container, Card } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
@@ -20,6 +20,7 @@ export class ProfileView extends React.Component {
       password: "",
       email: "",
       birthday: "",
+      validated: "",
       favoriteMovies: [],
 
     };
@@ -49,7 +50,7 @@ export class ProfileView extends React.Component {
           user: response.data,
           isLoading: false,
           username: response.data.Username,
-          password: response.data.Password,
+          password: null,
           email: response.data.Email,
           birthday: response.data.Birthday,
           favoriteMovies: response.data.FavoriteMovies
@@ -120,7 +121,22 @@ export class ProfileView extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    console.log(this.state)
+
+        //handles form validation
+        console.log(this.state)
+        const form = e.currentTarget;
+        if (form.checkValidity() === false) {
+          event.stopPropagation();
+        } else {
+    
+          this.setState({ validated: true });
+
+        }
+        // notify that fields were validated,
+        // therefore feedback can be shown
+        // (otherwise it will appear at page load)
+    
+    
  
     axios.put(`https://myflickz.herokuapp.com/users/${localStorage.getItem("user")}`,
         {
@@ -158,9 +174,6 @@ render() {
     //favoriteMovies view
     if (userView === true) {
       return <Container>
-        <div>{this.state.isLoading 
-          ? (<div className="justify-content-center"><Spinner animation="border" /></div>) 
-          : (<div>
             <Link to="" onClick={() => history.back()}>
               <FontAwesomeIcon icon={faChevronLeft} className="mr-2 mr-sm-4"/>
             </Link>
@@ -196,10 +209,6 @@ render() {
                       </Card>
                       ))) : ""}
                 </div>
-              </div>
-              )}
-          </div>
-
       </Container>}
 
     //update user view
@@ -233,7 +242,8 @@ render() {
         <Row className="justify-content-center">
           <Col xs={8} sm={8} md={7} lg={5} className="form-container">
 
-            <Form>
+            <Form noValidate validated={this.state.validated}
+              onSubmit={this.handleSubmit}>
               
               <Form.Group controlId="formBasicUsername">
                 <Form.Label>Username</Form.Label>
@@ -243,11 +253,11 @@ render() {
                   name="username"
                   value={this.state.username}
                   onChange={this.changeHandler}
-                  required
+                  required minLength={5} pattern="[a-zA-Z0-9]+"
                   placeholder="Enter Username"
                 />
                 <Form.Control.Feedback type="invalid">
-                  Enter a User name
+                  Username must be alphanumeric and include at least 5 characters.
                 </Form.Control.Feedback>
               </Form.Group>
 
@@ -262,7 +272,7 @@ render() {
                   required
                   placeholder="Enter Email" />
                 <Form.Control.Feedback type="invalid">
-                  "Please provide a valid email address."
+                  Please provide a valid email address.
                 </Form.Control.Feedback>
               </Form.Group>
 
@@ -272,13 +282,13 @@ render() {
                   size="sm"
                   type="password"
                   name="password"
-                  value={this.state.password}
+                  value={null}
                   onChange={this.changeHandler}
-                  required
+                  required 
                   placeholder="Enter Password"
                 />
                 <Form.Control.Feedback type="invalid">
-                  "Please provide a valid email address."
+                Please provide a password.
                 </Form.Control.Feedback>
               </Form.Group>
 
@@ -294,10 +304,10 @@ render() {
                   placeholder="Enter Birthday"
                 />
                 <Form.Control.Feedback type="invalid">
-                  "Please provide a valid date (e.g. 01/01/1970)"
+                  Please provide a valid date (e.g. 01/01/1970)
                 </Form.Control.Feedback>
               </Form.Group>
-<div>
+        <div>
               <Button 
                   className="fave-view-button btn-lg" 
                   variant="outline-primary" 
@@ -325,13 +335,6 @@ render() {
               </div>
               <br />
             </Form>
-            <Row className="justify-content-center">{this.state.isLoading 
-          ? (<div><Spinner animation="border" /></div>) 
-          : (<div>
-              </div>
-            )}
-
-        </Row>
           </Col>
           <Col style={{maxWidth: "20%", paddingTop: "32px"}}>
           <Button
