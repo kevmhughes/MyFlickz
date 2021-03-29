@@ -93,7 +93,7 @@ export class MainView extends React.Component {
         if (!movies) return <div className="main-view"/>;
  
         return (
-            <Router>
+            <Router basename="/client">
                 <Navbar className="d-flex justify-content-between" fixed="top" variant="light" bg="light">
                     <Navbar.Brand href="/client/">MyFlix</Navbar.Brand>
                         <Nav>
@@ -133,10 +133,10 @@ export class MainView extends React.Component {
 
                     <Route exact path="/client/users/:username" render={() => <ProfileView movies={movies} user={user} />} />
 
-                    <Route exact path='/client/movies/:movieId' render={({match}) => 
+                    <Route path='/movies/:movieId' render={({match}) => 
                     <MovieView movie={movies.find(m => m._id === match.params.movieId)} />}/>
 
-                    <Route exactpath='/client/directors/:name' render={({match}) => {
+                    <Route path='/directors/:name' render={({match}) => {
                         if (!movies) return <div className="main-view"/>;
                         return <DirectorView director={movies.find(m => 
                             m.Director.Name === match.params.name).Director} movies={movies} />
