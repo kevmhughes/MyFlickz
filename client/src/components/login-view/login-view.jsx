@@ -75,7 +75,7 @@ export function LoginView(props) {
             <br/>
             <br/>
             <span style={{width: "100%"}}>
-              Not registered? <a href='client/users' style={{textDecoration: "none"}}>Create an account</a>
+              Not registered? <a href='/users' style={{textDecoration: "none"}}>Create an account</a>
             </span>
           
           </Form>
