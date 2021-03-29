@@ -24,11 +24,16 @@
     padding-left: 15px;
 }
 
-.logout-button {
+.profile-button {
     margin-right: 10px;
 }
 
 .spinner {
-    height: 1000px;
+    height: 100px;
+    width: 100px;
+    margin: 0px 0px 0 -48px;
+    position: absolute;
+    top: 45%;
+    left: 50%;
 }
 

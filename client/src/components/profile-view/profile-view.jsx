@@ -4,6 +4,7 @@ import { Row, Col, Form, Button, Container, Card } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
+import { faStar} from "@fortawesome/free-solid-svg-icons";
 import './profile-view.scss';
 
 import axios from 'axios';
@@ -30,6 +31,7 @@ export class ProfileView extends React.Component {
   }
 
   componentDidMount() {
+    this.mounted = true;
     let accessToken = localStorage.getItem("token");
     let user = localStorage.getItem("user");
     if (accessToken !== null) {
@@ -102,7 +104,7 @@ export class ProfileView extends React.Component {
           headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
         })
       .then(response => {
-        alert("movie removed from favorites");
+        alert("Movie removed from favorites.");
       })
       .then(response => {      
         document.location.reload(true);
@@ -138,27 +140,50 @@ export class ProfileView extends React.Component {
     
     
  
-    axios.put(`https://myflickz.herokuapp.com/users/${localStorage.getItem("user")}`,
-        {
-          Username: this.state.username,
-          Password: this.state.password,
-          Email: this.state.email,
-          Birthday: this.state.birthday
-        },
-        {
-          headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }
-        })
-      .then(response => {
-        console.log(response);
-        alert("Your account details have been updated.");
-        localStorage.setItem("user", this.state.username);
-        window.open('/', '_self') // the second argument '_self' is necessary so that the page will open in the current tab
+  axios.put(`https://myflickz.herokuapp.com/users/${localStorage.getItem("user")}`,
+      {
+        Username: this.state.username,
+        Password: this.state.password,
+        Email: this.state.email,
+        Birthday: this.state.birthday
+      },
+      {
+        headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }
       })
-      .catch(error => {
-        console.log("error");
-      });
+    .then(response => {
+      console.log(response);
+      alert("Your account details have been updated.");
+      localStorage.setItem("user", this.state.username);
+      window.open('/', '_self') // the second argument '_self' is necessary so that the page will open in the current tab
+    })
+    .catch(error => {
+      console.log("error");
+    });
   }
 
+  goBack = () => {
+    window.history.go(-1);
+    if (
+      window.location.pathname === '/' ||
+      (window.history.state && window.history.state.key)
+    ) {
+      return;
+    }
+    if (this.timer) {
+      clearTimeout(this.timer);
+    }
+    this.timer = setTimeout(() => {
+      this.goBack();
+    }, 100);
+  };
+
+  componentWillUnmount() {
+    // fix Warning: Can't perform a React state update on an unmounted component
+    this.mounted = false;
+    this.setState = (state,callback)=>{
+        return;
+    };
+}
 
 render() {
     const { userView, favoriteMovies } = this.state;
@@ -170,16 +195,17 @@ render() {
     localStorage.getItem("user");
     console.log(this.state);
 
-
     //favoriteMovies view
     if (userView === true) {
       return <Container>
-            <Link to="" onClick={() => history.back()}>
-              <FontAwesomeIcon icon={faChevronLeft} className="mr-2 mr-sm-4"/>
-            </Link>
+
+              <a href="#" onClick={this.goBack} >
+                <FontAwesomeIcon icon={faChevronLeft} className="mr-2 mr-sm-4"/>
+              </a>
+
               <Row>
                 <Col style={{marginRight: "-300px"}} xs={{ offset: 1 }} sm={{ offset: 0 }} md={{ offset: 0 }} lg={{ offset: 0 }}>
-                    <h1>Your Favorite Movies</h1>
+                    <h1>Favorite Movies</h1>
                 </Col>
                 <Col style={{paddingTop: "10px"}}>
                   <Button 
@@ -209,52 +235,39 @@ render() {
                       </Card>
                       ))) : ""}
                 </div>
+
       </Container>}
 
     //update user view
     return (
       <Container style={{ paddingTop: "100px" }}>
-        <Link to="" onClick={() => history.back()}>
-          <FontAwesomeIcon icon={faChevronLeft} className="mr-2 mr-sm-4"/>
-        </Link>
-        <Row>
-          <Col xs={{ offset: 1 }} sm={{ offset: 0 }} md={{ offset: 0 }} lg={{ offset: 0 }}>
-            <h1>Profile</h1>
-            <br/>
-          </Col>
-          <Col style={{paddingTop: "10px"}}>
-          <Button 
-          className="movies-button" 
-          href="/" 
-          style={{float: "right" }}
-          size="sm" 
-          variant='primary'>
-          All movies
-        </Button>
-          </Col>              
-        </Row>
 
-       
+        <a href="#" onClick={this.goBack} >
+            <FontAwesomeIcon icon={faChevronLeft} className="mr-2 mr-sm-4"/>
+        </a>
 
       <div className="profile-view">
+        <Row className="profile-form">
+          <Col>
 
-
-        <Row className="justify-content-center">
-          <Col xs={8} sm={8} md={7} lg={5} className="form-container">
+            <Col>
+              <h1>User Profile</h1>
+              <br/>
+            </Col>
 
             <Form noValidate validated={this.state.validated}
               onSubmit={this.handleSubmit}>
               
               <Form.Group controlId="formBasicUsername">
-                <Form.Label>Username</Form.Label>
                 <Form.Control
+                  className="profile-input"
                   size="sm"
                   type="text"
                   name="username"
-                  value={this.state.username}
+                  value={undefined}
                   onChange={this.changeHandler}
                   required minLength={5} pattern="[a-zA-Z0-9]+"
-                  placeholder="Enter Username"
+                  placeholder="Enter username"
                 />
                 <Form.Control.Feedback type="invalid">
                   Username must be alphanumeric and include at least 5 characters.
@@ -262,15 +275,15 @@ render() {
               </Form.Group>
 
               <Form.Group controlId="formBasicPassword">
-                <Form.Label>Password</Form.Label>
                 <Form.Control
+                  className="profile-input"
                   size="sm"
                   type="password"
                   name="password"
                   value={undefined}
                   onChange={this.changeHandler}
                   required minLength={5} 
-                  placeholder="Enter Password"
+                  placeholder="Enter password"
                 />
                 <Form.Control.Feedback type="invalid">
                 Password must include at least 5 characters.
@@ -278,80 +291,79 @@ render() {
               </Form.Group>
 
               <Form.Group controlId="formBasicEmail">
-                <Form.Label>Email</Form.Label>
                 <Form.Control
+                  className="profile-input"
                   size="sm"
                   type="email"
                   name="email"
-                  value={this.state.email}
+                  value={undefined}
                   onChange={this.changeHandler}
                   required
-                  placeholder="Enter Email" />
+                  placeholder="Enter email" />
                 <Form.Control.Feedback type="invalid">
                   Please provide a valid email address.
                 </Form.Control.Feedback>
               </Form.Group>
 
               <Form.Group controlId="formBasicBirthday" >
-                <Form.Label>Birthday</Form.Label>
                 <Form.Control
+                  className="profile-input"
                   size="sm"
                   type="date"
                   name="birthday"
-                  value={this.state.birthday}
+                  value={undefined}
                   onChange={this.changeHandler}
-                  placeholder="Enter Birthday"
+                  required pattern="^(19|20)\d\d[- /.](0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01])$"
+                  placeholder="Enter birthday (e.g. 1970/02/31)"
                 />
                 <Form.Control.Feedback type="invalid">
-                  Please provide a valid date (e.g. 01/01/1970)
+                  Please provide a valid date (e.g. yyyy/mm/dd)
                 </Form.Control.Feedback>
               </Form.Group>
-        <div>
-              <Button 
-                  className="fave-view-button btn-lg" 
-                  variant="outline-primary" 
-                  type="submit" 
-                  style={{float: "left" }}
-                  size="sm"
-                  onClick={this.changeUserView}>
-                    View your favorite movies
-                </Button>
-                </div>
-
+              
               <div className="button">
                 <Button 
                 className="update-button" 
-                size="sm"
-                style={{float: "right"}}
                 variant="primary" 
                 type="submit" 
                 onClick={e => this.handleSubmit(e)}>
                   Update
                 </Button>
               </div>
-              <br />
-              
-            </Form>
-          </Col>
-          <Col style={{maxWidth: "20%", paddingTop: "32px"}}>
-          <Button
+
+              <div>
+                <Button
                   className="delete-button"
-                  size="sm"
                   variant='danger'
                   type='button'
                   onClick={e => this.deleteUser(e)}>
                   Unregister
                 </Button>
+              </div>
+             
+              <div>
+                <Button 
+                className="fave-view-button"
+                style={{textDecoration:"none"}}
+                variant="link"
+                onClick={this.changeUserView} >
+                    See favorite movies
+                  <FontAwesomeIcon icon={faStar} className="profile-star" style={{height: "30px", width: "25px"}}></FontAwesomeIcon>
+                </Button>
+              </div>
+
+            </Form>
           </Col>
         </Row>
       </div>
+
       </Container>
     );
   }
 }
 
 ProfileView.propTypes = {
-  userProfile: PropTypes.shape({
+  users: PropTypes.shape({
     email: PropTypes.string,
     Username: PropTypes.string,
     Password: PropTypes.string,

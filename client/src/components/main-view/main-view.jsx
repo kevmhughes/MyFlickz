@@ -87,10 +87,10 @@ export class MainView extends React.Component {
         // #2
         let { movies } = this.props;
         let { user } = this.state;
+        
 
         //Before the movies have been loaded
         if (!movies) return <div className="main-view"/>;
-
  
         return (
             <Router>
@@ -98,22 +98,36 @@ export class MainView extends React.Component {
                     <Navbar.Brand href="/">MyFlix</Navbar.Brand>
                         <Nav>
                         <Navbar.Text>Signed in as: {user}</Navbar.Text>
+                            <div className="profile-button">
+                            <Button href={`/users/${user}`}>
+                                Profile
+                            </Button>
+                            </div>
                             <div className="logout-button">
                             <Button variant="outline-primary" href={`/`} onClick={() => this.onLogOut()}>
                                 Log Out
                             </Button>
                             </div>
-                            <div>
-                            <Button href={`/users/${user}`}>
-                                Profile
-                            </Button>
-                            </div>
                         </Nav>
                 </Navbar>
-                <div className="main-view">
-                    <Route exact path='/' render={() => { 
-                        if (!user) return <LoginView onLoggedIn={user => this.onLoggedIn(user)} />;
-                        return <MoviesList movies={movies}/>;
+
+                <div className="login-view">
+                <Route exact path='/' render={() => { 
+                        if (!user) return <LoginView  onLoggedIn={user => this.onLoggedIn(user)} />;
+                        }}/>   
+                    </div>
+
+                    <div className="main-view">
+                    {this.state.isLoading && (user) 
+                    ? (
+                    <div>
+                    <div className="spinner-div">
+                    <Spinner className="spinner" animation="border" />
+                    </div>
+                    </div>
+                    ) : (<div>
+                    <Route exact path='/' render={() => {   
+                        if (user) return <MoviesList movies={movies}/>;
                         }}/>     
                     <Route exact path='/users' render={() => <RegistrationView />} />
 
@@ -133,12 +147,15 @@ export class MainView extends React.Component {
                         return <GenreView genre={movies.find(m => 
                             m.Genre.Name === match.params.name).Genre} movies={movies}/>
                     }}/>
-
+                    </div>
+                    )}
                 </div>
+
             </Router>
         );
     }
 }
+
 
 
 // #3
@@ -149,8 +166,23 @@ let mapStateToProps = state => {
 // #4
 export default connect(mapStateToProps, { setMovies } )(MainView);
 
-/*
-LoginView.propTypes = {
-    onLoggedIn: PropTypes.func.isRequired
+MainView.propTypes = {
+    movies: PropTypes.arrayOf(
+      PropTypes.shape({
+        _id: PropTypes.string,
+        Title: PropTypes.string,
+        ImagePath: PropTypes.string,
+        Description: PropTypes.string,
+        Genre: PropTypes.shape({
+          Name: PropTypes.string,
+          Description: PropTypes.string
+        }),
+        Director: PropTypes.shape({
+          Name: PropTypes.string,
+          Bio: PropTypes.string,
+          Birth: PropTypes.string,
+          Death: PropTypes.string
+        }),
+      })
+    ),
   };
-*/

@@ -7,6 +7,41 @@
     font-weight: bold;
 }
 
+.star-toggle-off {
+    cursor: pointer;
+    outline: none;
+    color: orange;
+    margin-left: -5px;
+    margin-bottom: 5px; 
+    height: 25px;
+    stroke:orange;
+    stroke-width: 30px;
+}
+
+.star-toggle-off:hover{
+    -webkit-transform: scale(1.1);
+    -ms-transform: scale(1.1);
+    transform: scale(1.1);
+  }
+
+.star-toggle-on {
+    cursor:pointer;
+    outline:none;
+    color:white; 
+    margin-left: -5px;
+    margin-bottom: 5px;
+    height: 25px;
+    text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000;
+    stroke:orange;
+    stroke-width: 30px;
+}
+
+.star-toggle-on:hover{
+    -webkit-transform: scale(1.1);
+    -ms-transform: scale(1.1);
+    transform: scale(1.1);
+  }
+
 .media {
 @media (max-width: "576px") {
     flex-direction: column-reverse;
@@ -20,5 +55,6 @@
     margin-left: 0px;
     margin-bottom: 20px;
     margin-top: 0px;
+    align-self: center;
  }
 }

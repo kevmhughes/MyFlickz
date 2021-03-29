@@ -1,10 +1,61 @@
 import React from 'react';
+import axios from 'axios';
 import PropTypes from 'prop-types';
-import { Spinner, Button, Card} from 'react-bootstrap';
+import { Button, Card} from 'react-bootstrap';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faStar} from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 import './movie-card.scss';
 
 export class MovieCard extends React.Component {
+
+      constructor() {
+        super();
+
+        this.state = {
+          
+          user: {},
+          favoriteMovies: [],
+
+        };
+
+    }
+
+    componentDidMount() {
+      this.mounted = true;
+      let accessToken = localStorage.getItem("token");
+      let user = localStorage.getItem("user");
+      if (accessToken !== null) {
+        this.getUserData(accessToken);
+        console.log(user);
+      }
+    }
+
+    getUserData(token) {
+      axios.get(`https://myflickz.herokuapp.com/users/${localStorage.getItem("user")}`, 
+        {
+          headers: { Authorization: `Bearer ${token}` }
+        })
+        .then((response) => {
+          // assign the result to the state
+          this.setState({
+            user: response.data,
+            favoriteMovies: response.data.FavoriteMovies 
+          });
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    };
+
+    componentWillUnmount() {
+      // fix Warning: Can't perform a React state update on an unmounted component
+      this.mounted = false;
+      this.setState = (state,callback)=>{
+          return;
+      };
+  }
+  
 
     render() {
         // This is given to the <MovieCard/> component by the outer world
@@ -17,12 +68,11 @@ export class MovieCard extends React.Component {
                 <Card className="movie-card-body" style={{ width: '16rem'}}>
                     <Card.Img style={{ height: '22rem'}} variant="top" src={movie.ImagePath}/>
                     <Card.Body>
-                      <Link to={`/movies/${movie._id}`} style={{ textDecoration: "none" }}>
-                        <Card.Title style={{ height: '3rem'}}>{movie.Title}</Card.Title>
-                      </Link>
-                      <Link to={`/genres/${movie.Genre.Name}`} style={{ textDecoration: "none" }}>
-                        <Card.Subtitle className="text-muted">{movie.Genre.Name}</Card.Subtitle>
-                      </Link>
+                      <Card.Title style={{ height: '3rem'}}><Link to={`/movies/${movie._id}`} style={{ textDecoration: "none" }}>{movie.Title}</Link><span className="value" >{this.state.favoriteMovies.includes(movie._id) 
+                        ? <FontAwesomeIcon icon={faStar} style={{color: "orange", height: "15px", marginBottom: "3px"}}/> 
+                        : "" }</span>
+                      </Card.Title>
+                        <Card.Subtitle className="text-muted"><Link to={`/genres/${movie.Genre.Name}`} style={{ textDecoration: "none" }}>{movie.Genre.Name}</Link></Card.Subtitle>
                       <Card.Text style={{ height: '120px'}}>{movie.Description.substring(0, 90)}...</Card.Text>
                       <Link to={`/movies/${movie._id}`}>
                         <Button variant="primary" size="sm">Open</Button>

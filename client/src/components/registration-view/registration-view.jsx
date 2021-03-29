@@ -1,135 +1,182 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Navbar, Container, Row, Col, Form, Button } from 'react-bootstrap';
 import axios from 'axios';
 import './registration-view.scss';
 import { Link } from 'react-router-dom';
 
-export function RegistrationView(props) {
-  const [ username, setUsername ] = useState('');
-  const [ password, setPassword ] = useState('');
-  const [ email, setEmail ] = useState('');
-  const [ birthday, setBirthday ] = useState('');
-  const [ validated, setValidated ] = useState('');
+export class RegistrationView extends React.Component {
+  constructor(props) {
 
-  const handleSubmit = (e) => {
+    super();
+    this.state = {
+      username: "",
+      password: "",
+      email: "",
+      birthday: "",
+    };
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.changeHandler = this.changeHandler.bind(this);
+    }
+ 
+  changeHandler(e) {
+    let data = Object.assign({}, this.state);
+
+    this.setState({ [e.target.name]: e.target.value });
+    console.log("data: ", data);
+  }
+
+  handleSubmit(e) {
     e.preventDefault();
-    console.log(username, password, email, birthday, validated);
+
+        //handles form validation
+        console.log(this.state)
         const form = e.currentTarget;
         if (form.checkValidity() === false) {
           event.stopPropagation();
         } else {
     
-          {setValidated(true)}
+          this.setState({ validated: true });
 
         }
+        // notify that fields were validated,
+        // therefore feedback can be shown
+        // (otherwise it will appear at page load)
     
-    axios
-    .post('https://myflickz.herokuapp.com/users', 
-    {
-      Username: username,
-      Password: password,
-      Email: email,
-      Birthday: birthday,
-  })
-    .then ((response) => {
-        const data = response.data;
-        console.log(data);
-        alert('User created successfully.');
-        window.open('/', '_self');// the second argument '_self' is necessary so that the page will open in the current tab
-    })
-    .catch((e) => {
-        console.log(e.response);
-        alert('Error registering the user.');
-    });
-  };
+        axios
+        .post('https://myflickz.herokuapp.com/users', 
+        {
+          Username: this.state.username,
+          Password: this.state.password,
+          Email: this.state.email,
+          Birthday: this.state.birthday
+      })
+        .then ((response) => {
+            const data = response.data;
+            console.log(data);
+            alert('User profile created successfully. Proceed to log in.');
+            window.open('/', '_self');// the second argument '_self' is necessary so that the page will open in the current tab
+        })
+        .catch((e) => {
+            console.log(e.response);
+              alert("Error registering the user");
+        });
+      };
 
-  return (
-  <Container className="registration-view">
 
-    <Navbar fixed="top" variant="light" bg="light">
-      <Navbar.Brand href="/">MyFlix</Navbar.Brand>
-    </Navbar>
+render() {
 
-    <Row>
-        <Col xs={{ offset: 1 }} sm={{ offset: 0 }} md={{ offset: 0 }} lg={{ offset: 0 }}>
-          <h1>Register for MyFlix</h1>
-          <br/>
-        </Col>
-    </Row>
+    return (
+    <Container className="registration-view">
 
-      <Row className="justify-content-center">
-        <Col xs={8} sm={8} md={6} lg={4} className="form-container">
-          <Form noValidate validated={setValidated}
-              onSubmit={handleSubmit}>
-            
-            <Form.Group controlId="formBasicUsername">
-              <Form.Label>Username</Form.Label>
-              <Form.Control 
-              size="sm"
-              type="text" 
-              placeholder="Enter username"
-              value={username} 
-              required minLength={5} pattern="[a-zA-Z0-9]+"
-              onChange={e => setUsername(e.target.value)} />
-              <Form.Control.Feedback type="invalid">
-              Username must be alphanumeric and include at least 5 characters.
-              </Form.Control.Feedback>
-            </Form.Group>
+      <Navbar fixed="top" variant="light" bg="light">
+        <Navbar.Brand href="/">MyFlix</Navbar.Brand>
+      </Navbar>
 
-            <Form.Group controlId="formBasicPassword">
-              <Form.Label>Password</Form.Label>
-              <Form.Control 
-              size="sm"
-              type="password" 
-              placeholder="Enter password"
-              value={password} 
-              required minLength={5} 
-              onChange={e => setPassword(e.target.value)} />
-              <Form.Control.Feedback type="invalid">
-              Password must include at least 5 characters.
-              </Form.Control.Feedback>
-            </Form.Group>
+      
 
-            <Form.Group controlId="formBasicEmail">
-              <Form.Label>Email</Form.Label>
-              <Form.Control 
-              size="sm"
-              type="email" 
-              placeholder="Enter email"
-              value={email} 
-              required
-              onChange={e => setEmail(e.target.value)} />
-              <Form.Control.Feedback type="invalid">
-              Please provide a valid email address.
-              </Form.Control.Feedback>
-            </Form.Group>
 
-            <Form.Group controlId="formBasicBirthday">
-              <Form.Label>Birthday</Form.Label>
-              <Form.Control 
+      <div className="registration-view">
+        <Row className="justify-content-center">
+          <Col className="form-container">
+
+            <Row>
+              <Col>
+                <h1>Create Account</h1>
+                <br/>
+              </Col>
+            </Row>
+
+            <Form noValidate validated={this.state.validated}
+              onSubmit={this.handleSubmit}>
+              
+              <Form.Group controlId="formBasicUsername">
+                <Form.Control
+                  className="registration-input"
+                  size="sm"
+                  type="text"
+                  name="username"
+                  value={this.username}
+                  onChange={this.changeHandler}
+                  required minLength={5} pattern="[a-zA-Z0-9]+"
+                  placeholder="Enter username"
+                />
+                <Form.Control.Feedback type="invalid">
+                  Username must be alphanumeric and include at least 5 characters.
+                </Form.Control.Feedback>
+              </Form.Group>
+
+              <Form.Group controlId="formBasicPassword">
+                <Form.Control
+                  className="registration-input"
+                  size="sm"
+                  type="password"
+                  name="password"
+                  value={this.password}
+                  onChange={this.changeHandler}
+                  required minLength={5} 
+                  placeholder="Enter password"
+                />
+                <Form.Control.Feedback type="invalid">
+                Password must include at least 5 characters.
+                </Form.Control.Feedback>
+              </Form.Group>
+
+              <Form.Group controlId="formBasicEmail">
+                <Form.Control
+                  className="registration-input"
+                  size="sm"
+                  type="email"
+                  name="email"
+                  value={this.email}
+                  onChange={this.changeHandler}
+                  required
+                  placeholder="Enter email" />
+                <Form.Control.Feedback type="invalid">
+                  Please provide a valid email address.
+                </Form.Control.Feedback>
+              </Form.Group>
+
+              <Form.Group controlId="formBasicBirthday" >
+                <Form.Control
+                  className="registration-input"
+                  size="sm"
+                  type="date"
+                  name="birthday"
+                  value={this.birthday}
+                  onChange={this.changeHandler}
+                  required pattern="^(19|20)\d\d[- /.](0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01])$"
+                  placeholder="Enter birthday (e.g. 1970/02/31)"
+                />
+                <Form.Control.Feedback type="invalid">
+                  Please provide a valid date (e.g. yyyy/mm/dd)
+                </Form.Control.Feedback>
+              </Form.Group>
+
+
+              <div className="button">
+                <Button 
+                className="registration-button" 
                 size="sm"
-                type="date" 
-                placeholder="Enter date of birth"
-                value={birthday} 
-                onChange={e => setBirthday(e.target.value)} />
-              <Form.Control.Feedback type="invalid">
-                Please provide a valid date (e.g. 01/01/1970)
-              </Form.Control.Feedback>
-            </Form.Group>
-
-            <Link to={`/client`}>
-              <Button 
+                style={{float: "right"}}
                 variant="primary" 
-                size="sm" 
-                style={{ float: "right"}}
-                onClick={handleSubmit}>
-                Register
-              </Button>
-            </Link>
-
-          </Form>
-        </Col>
-      </Row>
-    </Container>
-  );
+                type="submit" 
+                onClick={e => this.handleSubmit(e)}>
+                  Register
+                </Button>
+              </div>
+              <br/>
+              <br/>
+              <Row>
+              <span style={{width: "100%", marginTop: "15px"}}>
+                Already registered? <a href="/" style={{textDecoration: "none"}}>Log in</a>
+              </span>
+              </Row>
+            </Form>
+          </Col>
+        </Row>
+      </div>
+      </Container>
+    );
+  }
 }
+

@@ -1,9 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import axios from 'axios';
 import { Card, Container, Media, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
+import { faStar} from "@fortawesome/free-solid-svg-icons";
 import './genre-view.scss';
 
 
@@ -12,8 +14,69 @@ export class GenreView extends React.Component {
     constructor() {
         super();
 
-        this.state = {};
+        this.state = {
+
+          user: {},
+          favoriteMovies: [],
+          
+        };
+        
     }
+
+    componentDidMount() {
+      this.mounted = true;
+      let accessToken = localStorage.getItem("token");
+      let user = localStorage.getItem("user");
+      if (accessToken !== null) {
+        this.getUserData(accessToken);
+      }
+    }
+
+
+
+    getUserData(token) {
+      axios.get(`https://myflickz.herokuapp.com/users/${localStorage.getItem("user")}`, 
+        {
+          headers: { Authorization: `Bearer ${token}` }
+        })
+        .then((response) => {
+          // assign the result to the state
+          this.setState({
+            user: response.data,
+            favoriteMovies: response.data.FavoriteMovies
+            
+          });
+          console.log(response.data);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    };
+
+
+    goBack = () => {
+      window.history.go(-1);
+      if (
+        window.location.pathname === '/' ||
+        (window.history.state && window.history.state.key)
+      ) {
+        return;
+      }
+      if (this.timer) {
+        clearTimeout(this.timer);
+      }
+      this.timer = setTimeout(() => {
+        this.goBack();
+      }, 100);
+    };
+
+    componentWillUnmount() {
+      // fix Warning: Can't perform a React state update on an unmounted component
+      this.mounted = false;
+      this.setState = (state,callback)=>{
+          return;
+      };
+  }
 
     render() {
         const { movies, genre } = this.props;
@@ -23,15 +86,15 @@ export class GenreView extends React.Component {
         return (
         <Container className="genre-view">
             
-          <Link to="" onClick={() => history.back()}>
-            <FontAwesomeIcon icon={faChevronLeft} className="mr-2 mr-sm-4"/>
-          </Link>
+            <a onClick={this.goBack} >
+                <FontAwesomeIcon icon={faChevronLeft} className="mr-2 mr-sm-4 go-back"/>
+            </a>
           
           <Media className="d-flex flex-lg-row flex-xs-column flex-sm-column">
             <Media.Body>
 
               <Link to={`/`}>
-                <Button className="genre-movies-button" variant="primary" size="sm" >All movies</Button>
+                <Button className="genre-movies-button" size="sm" variant="outline-primary">All movies</Button>
               </Link>
 
               <div className="genre-name">
@@ -59,12 +122,11 @@ export class GenreView extends React.Component {
                       <Card className="cards mb-3 mr-2" style={{ width: '16rem' }} >
                         <Card.Img style={{ height: '22rem'}} variant="top" src={m.ImagePath} />
                         <Card.Body className="movie-card-body">
-                        <Link to={`/movies/${m._id}`} style={{ textDecoration: "none" }}>
-                          <Card.Title style={{ height: '3rem'}}>{m.Title}</Card.Title>
-                        </Link>
-                        <Link to={`/genres/${m.Genre.Name}`} style={{ textDecoration: "none" }}>
-                          <Card.Subtitle className="text-muted">{m.Genre.Name}</Card.Subtitle>
-                        </Link>
+                        <Card.Title style={{ height: '3rem'}}><Link to={`/movies/${m._id}`} style={{ textDecoration: "none" }}>{m.Title}</Link><span className="value" >{this.state.favoriteMovies.includes(m._id) 
+                          ? <FontAwesomeIcon icon={faStar} style={{color: "orange", height: "15px", marginBottom: "3px"}}/> 
+                          : "" }</span>
+                        </Card.Title>
+                        <Card.Subtitle className="text-muted"><Link to={`/genres/${m.Genre.Name}`} style={{ textDecoration: "none" }}>{m.Genre.Name}</Link></Card.Subtitle>
                         <Card.Text style={{ height: '120px'}}>{m.Description.substring(0, 90)}...</Card.Text>
                         <Link to={`/movies/${m._id}`}>
                           <Button variant="primary" size="sm" >Read more</Button>
@@ -81,7 +143,6 @@ export class GenreView extends React.Component {
         );
     }
 }
-
 
 GenreView.propTypes = {
   genre: PropTypes.shape({
