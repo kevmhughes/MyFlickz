@@ -1,3 +1,4 @@
+const path = require("path");
 const cors = require('cors');
 //defines that express ("app") uses cors
 const express = require('express');
@@ -28,6 +29,10 @@ const app = express();
 app.use(morgan('common'));
 // a function for serving all static files from 'public'
 app.use(express.static('public'));
+app.use("/client", express.static(path.join(__dirname, "client", "dist")));
+app.get("/client/*", (req, res) => {
+  res.sendFile(path.join(__dirname, "client", "dist", "index.html"));
+});
 
 app.use(bodyParser.json());
 

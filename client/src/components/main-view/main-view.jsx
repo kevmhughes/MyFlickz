@@ -93,7 +93,7 @@ export class MainView extends React.Component {
         if (!movies) return <div className="main-view"/>;
  
         return (
-            <Router>
+            <Router basename="/client">
                 <Navbar className="d-flex justify-content-between" fixed="top" variant="light" bg="light">
                     <Navbar.Brand href="/">MyFlix</Navbar.Brand>
                         <Nav>
