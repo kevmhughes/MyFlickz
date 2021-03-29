@@ -18,6 +18,7 @@ export function LoginView(props) {
     .then(response => {
       const data = response.data;
       props.onLoggedIn(data);
+      window.open('/client', '_self');// the second argument '_self' is necessary so that the page will open in the current tab
     })
     .catch(e => {
       alert('that user does not exist');
@@ -74,7 +75,7 @@ export function LoginView(props) {
             <br/>
             <br/>
             <span style={{width: "100%"}}>
-              Not registered? <a href='/users' style={{textDecoration: "none"}}>Create an account</a>
+              Not registered? <a href='client/users' style={{textDecoration: "none"}}>Create an account</a>
             </span>
           
           </Form>
