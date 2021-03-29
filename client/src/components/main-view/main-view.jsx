@@ -78,7 +78,7 @@ export class MainView extends React.Component {
     }
 
     // This overrides the render() method of the superclass
-    // No need to call super() though, as it does nothin by default
+    // No need to call super() though, as it does nothing by default
     render() {
         // If the state is not initialized, this will throw on runtime
         // before the data is initially loaded
@@ -95,7 +95,7 @@ export class MainView extends React.Component {
         return (
             <Router basename="/client">
                 <Navbar className="d-flex justify-content-between" fixed="top" variant="light" bg="light">
-                    <Navbar.Brand href="/client/">MyFlix</Navbar.Brand>
+                    <Navbar.Brand href="/client">MyFlix</Navbar.Brand>
                         <Nav>
                         <Navbar.Text>Signed in as: {user}</Navbar.Text>
                             <div className="profile-button">
@@ -112,7 +112,7 @@ export class MainView extends React.Component {
                 </Navbar>
 
                 <div className="login-view">
-                <Route exact path='/client' render={() => { 
+                <Route exact path='/' render={() => { 
                         if (!user) return <LoginView  onLoggedIn={user => this.onLoggedIn(user)} />;
                         }}/>   
                     </div>
@@ -126,12 +126,12 @@ export class MainView extends React.Component {
                     </div>
                     </div>
                     ) : (<div>
-                    <Route exact path='/client' render={() => {   
+                    <Route exact path='/' render={() => {   
                         if (user) return <MoviesList movies={movies}/>;
                         }}/>     
-                    <Route exact path='/client/users' render={() => <RegistrationView />} />
+                    <Route exact path='/users' render={() => <RegistrationView />} />
 
-                    <Route exact path="/client/users/:username" render={() => <ProfileView movies={movies} user={user} />} />
+                    <Route exact path="/users/:username" render={() => <ProfileView movies={movies} user={user} />} />
 
                     <Route path='/movies/:movieId' render={({match}) => 
                     <MovieView movie={movies.find(m => m._id === match.params.movieId)} />}/>
