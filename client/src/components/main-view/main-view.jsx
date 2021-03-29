@@ -93,18 +93,18 @@ export class MainView extends React.Component {
         if (!movies) return <div className="main-view"/>;
  
         return (
-            <Router basename="/client">
+            <Router>
                 <Navbar className="d-flex justify-content-between" fixed="top" variant="light" bg="light">
-                    <Navbar.Brand href="/">MyFlix</Navbar.Brand>
+                    <Navbar.Brand href="/client/">MyFlix</Navbar.Brand>
                         <Nav>
                         <Navbar.Text>Signed in as: {user}</Navbar.Text>
                             <div className="profile-button">
-                            <Button href={`/users/${user}`}>
+                            <Button href={`/client/users/${user}`}>
                                 Profile
                             </Button>
                             </div>
                             <div className="logout-button">
-                            <Button variant="outline-primary" href={`/`} onClick={() => this.onLogOut()}>
+                            <Button variant="outline-primary" href={`/client`} onClick={() => this.onLogOut()}>
                                 Log Out
                             </Button>
                             </div>
@@ -112,7 +112,7 @@ export class MainView extends React.Component {
                 </Navbar>
 
                 <div className="login-view">
-                <Route exact path='/' render={() => { 
+                <Route exact path='/client' render={() => { 
                         if (!user) return <LoginView  onLoggedIn={user => this.onLoggedIn(user)} />;
                         }}/>   
                     </div>
@@ -126,23 +126,23 @@ export class MainView extends React.Component {
                     </div>
                     </div>
                     ) : (<div>
-                    <Route exact path='/' render={() => {   
+                    <Route exact path='/client' render={() => {   
                         if (user) return <MoviesList movies={movies}/>;
                         }}/>     
-                    <Route exact path='/users' render={() => <RegistrationView />} />
+                    <Route exact path='/client/users' render={() => <RegistrationView />} />
 
-                    <Route exact path="/users/:username" render={() => <ProfileView movies={movies} user={user} />} />
+                    <Route exact path="/client/users/:username" render={() => <ProfileView movies={movies} user={user} />} />
 
-                    <Route path='/movies/:movieId' render={({match}) => 
+                    <Route path='/client/movies/:movieId' render={({match}) => 
                     <MovieView movie={movies.find(m => m._id === match.params.movieId)} />}/>
 
-                    <Route path='/directors/:name' render={({match}) => {
+                    <Route path='/client/directors/:name' render={({match}) => {
                         if (!movies) return <div className="main-view"/>;
                         return <DirectorView director={movies.find(m => 
                             m.Director.Name === match.params.name).Director} movies={movies} />
                     }}/>
 
-                    <Route path='/genres/:name' render={({match}) => {
+                    <Route path='/client/genres/:name' render={({match}) => {
                         if (!movies) return <div className="main-view"/>;
                         return <GenreView genre={movies.find(m => 
                             m.Genre.Name === match.params.name).Genre} movies={movies}/>
