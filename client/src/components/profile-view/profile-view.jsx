@@ -37,12 +37,12 @@ export class ProfileView extends React.Component {
     if (accessToken !== null) {
       this.getUserData(accessToken);
     }
-    console.log(accessToken);
-    console.log(user);
+    //console.log(accessToken);
+    //console.log(user);
   }
 
   getUserData(token) {
-    axios.get(`https://myflickz.herokuapp.com/users/${localStorage.getItem("user")}`, 
+    axios.get(`/users/${localStorage.getItem("user")}`, 
       {
         headers: { Authorization: `Bearer ${token}` }
       })
@@ -68,7 +68,7 @@ export class ProfileView extends React.Component {
   //remove user
   deleteUser(e) {
     e.preventDefault();
-    axios.delete(`https://myflickz.herokuapp.com/users/${localStorage.getItem("user")}`,
+    axios.delete(`/users/${localStorage.getItem("user")}`,
         {
           headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }
         }
@@ -78,7 +78,7 @@ export class ProfileView extends React.Component {
         alert("Your account has been succesfully deleted.");
         localStorage.removeItem("user");
         localStorage.removeItem("token");
-        window.open("/", "_self");
+        window.open("/client", "_self");
       })
       .catch(error => {
         console.log(error);
@@ -99,7 +99,7 @@ export class ProfileView extends React.Component {
   //pull fave movie from favoriteMovies array
   removeFavoriteMovie(movieId) {
     axios.delete(
-        `https://myflickz.herokuapp.com/users/${localStorage.getItem("user")}/movies/${movieId}`,
+        `/users/${localStorage.getItem("user")}/movies/${movieId}`,
         {
           headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
         })
@@ -140,7 +140,7 @@ export class ProfileView extends React.Component {
     
     
  
-  axios.put(`https://myflickz.herokuapp.com/users/${localStorage.getItem("user")}`,
+  axios.put(`/users/${localStorage.getItem("user")}`,
       {
         Username: this.state.username,
         Password: this.state.password,
@@ -154,7 +154,7 @@ export class ProfileView extends React.Component {
       console.log(response);
       alert("Your account details have been updated.");
       localStorage.setItem("user", this.state.username);
-      window.open('/', '_self') // the second argument '_self' is necessary so that the page will open in the current tab
+      window.open('/client', '_self') // the second argument '_self' is necessary so that the page will open in the current tab
     })
     .catch(error => {
       console.log("error");
@@ -180,10 +180,10 @@ export class ProfileView extends React.Component {
   componentWillUnmount() {
     // fix Warning: Can't perform a React state update on an unmounted component
     this.mounted = false;
-    this.setState = (state,callback)=>{
-        return;
-    };
-}
+    // this.setState = (state,callback)=>{
+    //     return;
+    // };
+  }
 
 render() {
     const { userView, favoriteMovies } = this.state;

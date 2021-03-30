@@ -21,7 +21,6 @@ import { ProfileView } from '../profile-view/profile-view';
 
 export class MainView extends React.Component {
     constructor() {
-
         // Call the superclass constructor 
         // so that React can initialize it
         super();
@@ -32,7 +31,6 @@ export class MainView extends React.Component {
             user: null,
             isLoading: true,
         };
-
     }
 
     componentDidMount() {
@@ -64,7 +62,7 @@ export class MainView extends React.Component {
       }
     
     getMovies(token) {
-        axios.get('https://myflickz.herokuapp.com/movies', {
+        axios.get('/movies', {
            headers: { Authorization: `Bearer ${token}`} 
         })
         .then(response => {
@@ -95,7 +93,7 @@ export class MainView extends React.Component {
         return (
             <Router basename="/client">
                 <Navbar className="d-flex justify-content-between" fixed="top" variant="light" bg="light">
-                    <Navbar.Brand href="/client">MyFlix</Navbar.Brand>
+                    <Navbar.Brand href="/client">MyFlickz</Navbar.Brand>
                         <Nav>
                         <Navbar.Text>Signed in as: {user}</Navbar.Text>
                             <div className="profile-button">

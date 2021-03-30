@@ -37,7 +37,7 @@ export class MovieView extends React.Component {
     addToFavorites(e) {
         const { movie } = this.props;
         axios.post(
-          `https://myflickz.herokuapp.com/users/${localStorage.getItem('user')}/movies/${movie._id}`,
+          `/users/${localStorage.getItem('user')}/movies/${movie._id}`,
           { username: localStorage.getItem('user') },
           {
             headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
@@ -51,7 +51,7 @@ export class MovieView extends React.Component {
       }
 
       getUserData(token) {
-        axios.get(`https://myflickz.herokuapp.com/users/${localStorage.getItem("user")}`, 
+        axios.get(`/users/${localStorage.getItem("user")}`, 
           {
             headers: { Authorization: `Bearer ${token}` }
           })
@@ -72,7 +72,7 @@ export class MovieView extends React.Component {
         //pull fave movie from favoriteMovies array
       removeFavoriteMovie(movieId) {
         axios.delete(
-            `https://myflickz.herokuapp.com/users/${localStorage.getItem("user")}/movies/${movieId}`,
+            `/users/${localStorage.getItem("user")}/movies/${movieId}`,
             {
               headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
             })

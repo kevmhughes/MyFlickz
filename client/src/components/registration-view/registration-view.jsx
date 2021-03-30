@@ -43,7 +43,7 @@ export class RegistrationView extends React.Component {
         // (otherwise it will appear at page load)
     
         axios
-        .post('https://myflickz.herokuapp.com/users', 
+        .post('/users', 
         {
           Username: this.state.username,
           Password: this.state.password,
@@ -168,7 +168,7 @@ render() {
               <br/>
               <Row>
               <span style={{width: "100%", marginTop: "15px"}}>
-                Already registered? <a href="/" style={{textDecoration: "none"}}>Log in</a>
+                Already registered? <a href="/client" style={{textDecoration: "none"}}>Log in</a>
               </span>
               </Row>
             </Form>

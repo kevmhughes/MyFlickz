@@ -32,16 +32,18 @@ export class MovieCard extends React.Component {
     }
 
     getUserData(token) {
-      axios.get(`https://myflickz.herokuapp.com/users/${localStorage.getItem("user")}`, 
+      axios.get(`/users/${localStorage.getItem("user")}`, 
         {
           headers: { Authorization: `Bearer ${token}` }
         })
         .then((response) => {
+          if(this.mounted){
           // assign the result to the state
-          this.setState({
-            user: response.data,
-            favoriteMovies: response.data.FavoriteMovies 
-          });
+            this.setState({
+              user: response.data,
+              favoriteMovies: response.data.FavoriteMovies 
+            });
+          }
         })
         .catch(function (error) {
           console.log(error);
@@ -51,10 +53,7 @@ export class MovieCard extends React.Component {
     componentWillUnmount() {
       // fix Warning: Can't perform a React state update on an unmounted component
       this.mounted = false;
-      this.setState = (state,callback)=>{
-          return;
-      };
-  }
+    }
   
 
     render() {
