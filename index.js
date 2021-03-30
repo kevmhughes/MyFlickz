@@ -53,7 +53,7 @@ let auth = require("./auth")(app);
 let allowedOrigins = [
   "http://localhost:1234",
   "http://localhost:8080",
-  "https://myflickz.herokuapp.com/client/",
+  "https://myflickz.herokuapp.com",
   "*",
 ];
 app.use(
