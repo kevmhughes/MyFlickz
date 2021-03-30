@@ -62,16 +62,17 @@ export class RegistrationView extends React.Component {
     return (
       <Container className="registration-view">
         <Navbar fixed="top" variant="light" bg="light">
-          <Navbar.Brand href="/">MyFlix</Navbar.Brand>
+          <Navbar.Brand href="/">MyFlickz</Navbar.Brand>
         </Navbar>
 
         <div className="registration-view">
           <Row className="justify-content-center">
             <Col className="form-container">
               <Row>
-              <span style={{width: "100%", marginTop: "15px"}}>
-                Already registered? <a href="/client" style={{textDecoration: "none"}}>Log in</a>
-              </span>
+                <Col>
+                  <h1>Create Account</h1>
+                  <br />
+                </Col>
               </Row>
 
               <Form
@@ -164,8 +165,8 @@ export class RegistrationView extends React.Component {
                 <br />
                 <Row>
                   <span style={{ width: "100%", marginTop: "15px" }}>
-                    Already registered?{" "}
-                    <a href="/" style={{ textDecoration: "none" }}>
+                    Already registered?
+                    <a href="/client" style={{ textDecoration: "none" }}>
                       Log in
                     </a>
                   </span>

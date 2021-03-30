@@ -33,13 +33,13 @@ export function LoginView(props) {
         fixed="top" 
         variant="light" 
         bg="light">
-        <Navbar.Brand href="/">MyFlix</Navbar.Brand>
+        <Navbar.Brand href="/">MyFlickz</Navbar.Brand>
       </Navbar>
 
     <Row className="justify-content-center">
       <Row>
-        <Col>
-        <h1>Log in to MyFlix</h1>
+        <Col style={{width: "250px"}}>
+        <h1>User Login</h1>
         <br/>
         </Col>
       </Row>

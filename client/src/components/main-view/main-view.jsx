@@ -98,7 +98,7 @@ export class MainView extends React.Component {
           variant="light"
           bg="light"
         >
-          <Navbar.Brand href="/client">MyFlix</Navbar.Brand>
+          <Navbar.Brand href="/client">MyFlickz</Navbar.Brand>
           <Nav>
             <Navbar.Text>Signed in as: {user}</Navbar.Text>
             <div className="profile-button">
