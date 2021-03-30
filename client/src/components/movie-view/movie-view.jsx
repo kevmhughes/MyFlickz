@@ -9,86 +9,21 @@ import { faStar } from "@fortawesome/free-solid-svg-icons";
 import "./movie-view.scss";
 
 export class MovieView extends React.Component {
+  constructor() {
+    super();
 
-    constructor() {
-        super();
+    this.state = {
+      user: {},
+      favoriteMovies: [],
+    };
+  }
 
-        this.state = {
-          
-          user: {},
-          favoriteMovies: [],
-
-        };
-
-    }
-
-    componentDidMount() {
-      this.mounted = true;
-      let accessToken = localStorage.getItem("token");
-      let user = localStorage.getItem("user");
-      if (accessToken !== null) {
-        this.getUserData(accessToken);
-      }
-      console.log(accessToken);
-      console.log(user);
-    }
-
-    addToFavorites(e) {
-        const { movie } = this.props;
-        axios.post(
-          `/users/${localStorage.getItem('user')}/movies/${movie._id}`,
-          { username: localStorage.getItem('user') },
-          {
-            headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
-          })
-          .then(res => {
-            document.location.reload(true);
-          })
-          .catch(error => {
-            alert(`${movie.Title} was not added to your favorites.` + error)
-          });
-      }
-
-      getUserData(token) {
-        axios.get(`/users/${localStorage.getItem("user")}`, 
-          {
-            headers: { Authorization: `Bearer ${token}` }
-          })
-          .then((response) => {
-            // assign the result to the state
-            this.setState({
-              user: response.data,
-              favoriteMovies: response.data.FavoriteMovies
-              
-            });
-            console.log(response.data);
-          })
-          .catch(function (error) {
-            console.log(error);
-          });
-      };
-
-        //pull fave movie from favoriteMovies array
-      removeFavoriteMovie(movieId) {
-        axios.delete(
-            `/users/${localStorage.getItem("user")}/movies/${movieId}`,
-            {
-              headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
-            })
-          .then(response => {      
-            document.location.reload(true);
-          })
-          .catch(error => {
-            console.error(error);
-          });
-      }
-
-      componentWillUnmount() {
-        // fix Warning: Can't perform a React state update on an unmounted component
-        this.mounted = false;
-        this.setState = (state,callback)=>{
-            return;
-        };
+  componentDidMount() {
+    this.mounted = true;
+    let accessToken = localStorage.getItem("token");
+    let user = localStorage.getItem("user");
+    if (accessToken !== null) {
+      this.getUserData(accessToken);
     }
     console.log(accessToken);
     console.log(user);
