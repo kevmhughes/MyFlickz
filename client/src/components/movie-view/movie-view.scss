@@ -57,4 +57,10 @@
     margin-top: 0px;
     align-self: center;
  }
+ @media (max-width: "576px") {
+  margin-left: -10px;
+  margin-bottom: 20px;
+  margin-top: 40px;
+  align-self: center;
+}
 }

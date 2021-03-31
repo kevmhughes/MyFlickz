@@ -33,7 +33,7 @@ export function LoginView(props) {
         fixed="top" 
         variant="light" 
         bg="light">
-        <Navbar.Brand href="/">MyFlickz</Navbar.Brand>
+        <Navbar.Brand href="/client">MyFlickz</Navbar.Brand>
       </Navbar>
 
     <Row className="justify-content-center">
