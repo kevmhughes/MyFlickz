@@ -165,7 +165,7 @@ export class RegistrationView extends React.Component {
                 <br />
                 <Row>
                   <span style={{ width: "100%", marginTop: "15px" }}>
-                    Already registered?
+                    Already registered?{" "}
                     <a href="/client" style={{ textDecoration: "none" }}>
                       Log in
                     </a>

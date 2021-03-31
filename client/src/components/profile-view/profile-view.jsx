@@ -33,7 +33,6 @@ export class ProfileView extends React.Component {
     let accessToken = localStorage.getItem("token");
     let user = localStorage.getItem("user");
     if (accessToken !== null) {
-      console.log("checking");
       this.getUserData(accessToken);
     }
     //console.log(accessToken);
@@ -190,7 +189,6 @@ export class ProfileView extends React.Component {
     );
     localStorage.getItem("token");
     localStorage.getItem("user");
-    console.log("state ebere:", this.state);
 
     //favoriteMovies view
     if (userView === true) {

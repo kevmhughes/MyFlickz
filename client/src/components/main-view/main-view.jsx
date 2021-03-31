@@ -92,28 +92,26 @@ export class MainView extends React.Component {
 
     return (
       <Router basename="/client">
-        <Navbar
-          className="d-flex justify-content-between"
-          fixed="top"
-          variant="light"
-          bg="light"
-        >
+        <Navbar 
+          className="d-flex justify-content-between" 
+          fixed="top" 
+          variant="light" 
+          bg="light" 
+          expand="sm">
           <Navbar.Brand href="/client">MyFlickz</Navbar.Brand>
-          <Nav>
-            <Navbar.Text>Signed in as: {user}</Navbar.Text>
+          <Navbar.Toggle aria-controls="basic-navbar-nav"/>
+          <Navbar.Collapse className="justify-content-end" id="basic-navbar-nav">
+          <Navbar.Text>Signed in as: {user}</Navbar.Text>
             <div className="profile-button">
               <Button href={`/client/users/${user}`}>Profile</Button>
             </div>
             <div className="logout-button">
-              <Button
-                variant="outline-primary"
-                href={`/client`}
-                onClick={() => this.onLogOut()}
-              >
-                Log Out
-              </Button>
+              <Button 
+                variant="outline-primary" 
+                href={`/client`} 
+                onClick={() => this.onLogOut()}>Log Out</Button>
             </div>
-          </Nav>
+          </Navbar.Collapse>
         </Navbar>
 
         <div className="login-view">
