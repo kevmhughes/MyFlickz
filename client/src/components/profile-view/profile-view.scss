@@ -17,14 +17,14 @@
   }
   
   .profile-movie-list {
-      @media (max-width: "576px"){
+      @media (max-width: "575px"){
       margin-left: 0px;
       place-content: center;
       }
   }
 
   .go-back-button {
-    @media (max-width: "576px"){
+    @media (max-width: "575px"){
     margin-top: 45px;
     }
     }
