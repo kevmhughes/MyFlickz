@@ -26,19 +26,13 @@
 
 .profile-button {
     margin-right: 10px;
-@media (max-width: "576px") {
+@media (max-width: "575px") {
     min-inline-size: max-content;
 } 
 }
 
-.btn-outline-primary {
-@media (max-width: "576px") {
-    inline-size: max-content;
-} 
-}
-
 .justify-content-end {
-    @media (max-width: "576px") {
+    @media (max-width: "575px") {
         margin-top: 10px;
        -ms-flex-pack: end!important;
        justify-content: flex-end!important;
@@ -47,7 +41,7 @@
    }
 
    .navbar-text {
-    @media (max-width: "576px") {
+    @media (max-width: "575px") {
     inline-size: -webkit-fill-available;
 }
 }

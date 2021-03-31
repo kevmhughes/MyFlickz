@@ -62,7 +62,7 @@ export class RegistrationView extends React.Component {
     return (
       <Container className="registration-view">
         <Navbar fixed="top" variant="light" bg="light">
-          <Navbar.Brand href="/client/users">MyFlickz</Navbar.Brand>
+          <Navbar.Brand href="/">MyFlickz</Navbar.Brand>
         </Navbar>
 
         <div className="registration-view">
