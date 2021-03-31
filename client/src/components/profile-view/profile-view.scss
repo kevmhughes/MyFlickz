@@ -23,6 +23,12 @@
       }
   }
 
+  .go-back-button {
+    @media (max-width: "576px"){
+    margin-top: 45px;
+    }
+    }
+
   .profile-form {
     -ms-flex-pack: center!important;
     justify-content: center!important;
