@@ -20,4 +20,8 @@
     margin-left: 0px;
     place-content: space-evenly;
     }
-}
+    @media (max-width: "576px"){
+        margin-left: 20px;
+        place-content: space-evenly;
+   }
+   }
