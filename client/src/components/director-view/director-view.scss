@@ -37,3 +37,15 @@
 .go-back:hover {
     color: rgb(39, 94, 179);
 }
+
+.cards {
+@media (max-width: "575px") {
+    width: '20rem';
+    }
+    }
+
+.cards {
+@media (max-width: "360px") {
+    width: '18rem';
+    }
+    }

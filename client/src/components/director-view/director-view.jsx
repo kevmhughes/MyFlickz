@@ -119,7 +119,7 @@ export class DirectorView extends React.Component {
                 if (m.Director.Name === director.Name) {
                   return (
                     <div key={m._id} style={{ marginRight: "0px", marginBottom: "20px" }}>
-                      <Card className="mb-3 mr-2" style={{ width: '16rem' }} >
+                      <Card className="cards mb-3 mr-2" style={{ width: '16rem' }} >
                         <Card.Img style={{ height: '22rem'}} variant="top" src={m.ImagePath} />
                         <Card.Body className="movie-card-body">
                           <Card.Title style={{ height: '3rem'}}><Link to={`/movies/${m._id}`} style={{ textDecoration: "none" }}>{m.Title}</Link><span className="value" >{this.state.favoriteMovies.includes(m._id) 

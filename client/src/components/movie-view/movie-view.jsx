@@ -96,7 +96,7 @@ export class MovieView extends React.Component {
       <Container className="movie-view">
         <Media className="d-flex flex-lg-row flex-xs-column-reverse flex-sm-column-reverse">
           <Media.Body>
-            <a href="/">
+            <a href="/client">
               <FontAwesomeIcon icon={faChevronLeft} className="mr-2 mr-sm-4" />
             </a>
 
