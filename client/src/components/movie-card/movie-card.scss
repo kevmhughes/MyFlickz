@@ -5,12 +5,21 @@
 .movie-card-body {
     width: 16rem;
 
-    @media (max-width: "576px") {
+    @media (max-width: "575px") {
       width: 20rem;
     }
     @media (max-width: "360px") {
       width: 18rem;
     }
+
+}
+
+.card-image-height {
+  height: 22rem;
+
+  @media (max-width: "575px") {
+    height: 26rem;
+  }
 
 }
 

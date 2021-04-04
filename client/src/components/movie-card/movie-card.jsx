@@ -64,7 +64,7 @@ export class MovieCard extends React.Component {
       >
         <Card className="movie-card-body">
           <Card.Img
-            style={{ height: "22rem" }}
+            className="card-image-height"
             variant="top"
             src={movie.ImagePath}
           />

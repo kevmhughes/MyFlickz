@@ -235,7 +235,7 @@ export class ProfileView extends React.Component {
               ? favoriteMovieList.map((m) => (
                   <Card
                     key={m._id}
-                    className="movie-card-body card"
+                    className="profile-card-body card"
                     style={{
                       minWidth: "16rem",
                       maxWidth: "16rem",

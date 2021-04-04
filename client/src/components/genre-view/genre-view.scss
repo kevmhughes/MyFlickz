@@ -1,3 +1,7 @@
+.genre-card-body {
+    box-shadow: 0px 6px 6px -6px rgb(93, 93, 93);
+  }
+
 .genre-movies-button {
     float:right;
 }
@@ -38,14 +42,14 @@
     color: rgb(39, 94, 179);
 }
 
-.cards {
+.genre-card-body {
+    width: 16rem;
+
     @media (max-width: "575px") {
-        width: '20rem';
-        }
-        }
-    
-    .cards {
+      width: 20rem;
+    }
     @media (max-width: "360px") {
-        width: '18rem';
-        }
-        }
+      width: 18rem;
+    }
+
+}
