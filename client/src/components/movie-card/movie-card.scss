@@ -3,13 +3,14 @@
   }
 
 .movie-card-body {
-  @media (max-width: "575px") {
-      width: '20rem';
+    width: 16rem;
+
+    @media (max-width: "576px") {
+      width: 20rem;
     }
+    @media (max-width: "360px") {
+      width: 18rem;
     }
 
-.movie-card-body {
-  @media (max-width: "360px") {
-      width: '18rem';
-    }
-    }
+}
+

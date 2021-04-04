@@ -62,7 +62,7 @@ export class MovieCard extends React.Component {
         className="card-container"
         style={{ marginRight: "20px", marginBottom: "20px" }}
       >
-        <Card className="movie-card-body" style={{ width: "16rem" }}>
+        <Card className="movie-card-body">
           <Card.Img
             style={{ height: "22rem" }}
             variant="top"
