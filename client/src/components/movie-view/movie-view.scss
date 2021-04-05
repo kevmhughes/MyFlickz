@@ -1,6 +1,7 @@
 .movie-poster {
     margin-left: 20px;
     margin-bottom: 20px;
+    height: 25rem;
 }
 
 .label {
@@ -50,6 +51,7 @@
   }
 
   .movie-poster {
+    height: 32rem;
     margin-top: 115px;
  @media (max-width: "992px") {
     margin-left: 0px;
@@ -58,9 +60,16 @@
     align-self: center;
   }
  @media (max-width: "575px") {
+  height: 27rem;
+  width: 20rem;
   margin-left: -10px;
   margin-bottom: 20px;
   margin-top: 20px;
   align-self: center;
  }
+ @media (max-width: "360px") {
+  height: 25rem;
+  width: 18rem;
+ }
+ 
  }

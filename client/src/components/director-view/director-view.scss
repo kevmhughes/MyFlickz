@@ -53,3 +53,16 @@
     }
 
 }
+
+.card-image-height {
+    height: 22rem;
+  
+    @media (max-width: "575px") {
+      height: 27rem;
+    }  
+    
+    @media (max-width: "360px") {
+      height: 25rem;
+    }
+  
+  }

@@ -149,7 +149,6 @@ export class MovieView extends React.Component {
           <img
             className="movie-poster"
             src={movie.ImagePath}
-            style={{ height: "25rem" }}
           />
         </Media>
       </Container>

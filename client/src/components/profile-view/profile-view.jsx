@@ -237,8 +237,6 @@ export class ProfileView extends React.Component {
                     key={m._id}
                     className="profile-card-body card"
                     style={{
-                      minWidth: "16rem",
-                      maxWidth: "16rem",
                       marginRight: "15px",
                       marginBottom: "20px",
                     }}
@@ -246,7 +244,7 @@ export class ProfileView extends React.Component {
                     <Card.Img
                       variant="top"
                       src={m.ImagePath}
-                      style={{ maxHeight: "22rem" }}
+                      className="card-image-height"
                     />
                     <Card.Body
                       className="favorite-card-body"
