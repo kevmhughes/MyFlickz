@@ -18,6 +18,7 @@ export class GenreView extends React.Component {
 
           user: {},
           favoriteMovies: [],
+            movies: []
           
         };
         
@@ -30,8 +31,25 @@ export class GenreView extends React.Component {
       if (accessToken !== null) {
         this.getUserData(accessToken);
       }
+        this.getMoviesByGenre()
     }
 
+    getMoviesByGenre(token) {
+    const { name } = props.match.params
+    
+    axios
+      .get(`/movies/genre/${name}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      .then((response) => {
+        // #1
+//         this.props.setMovies(response.data);
+        this.setState({ isLoading: false, movies: response.data });
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }
 
 
     getUserData(token) {
@@ -79,8 +97,8 @@ export class GenreView extends React.Component {
   }
 
     render() {
-        const { movies, genre } = this.props;
-
+        const { genre } = this.props;
+        const { movies } = this.state
         if (!genre) return null;
 
         return (
