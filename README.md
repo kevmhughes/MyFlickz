@@ -31,7 +31,7 @@ The **REST API**, and database, were built using **JavaScript**, **Node.js**, **
 
 # Endpoints
 
-Put endpoints here...
+[MyFlickz.pdf](https://github.com/kevmhughes/MyFlickz/files/6300244/MyFlickz.pdf)
 
 ### Dependencies
     "bcrypt": "^5.0.1",
