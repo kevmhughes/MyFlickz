@@ -2,11 +2,10 @@
 ### A full stack web development project. 
 MyFlickz is a **REST API** built using the **MERN** stack.
 
-The UI was built using **React**. The UI handles data requested by the user through the REST API endpoints defined below.
-
-
 ### Description
 **MyFlickz** is a film buff's dream. It is essentially a database of movies, genres, and directors, where users can browse through a large selection of films and enrich their knowledge of cinema. 
+
+The UI was built using **React**, and handles data requested by the user through the REST API [endpoints](https://github.com/kevmhughes/MyFlickz/blob/main/README.md#endpoints) defined below.
 
 ### Users can:
 
@@ -44,6 +43,8 @@ Put endpoints here
     "passport-local": "^1.0.0",
     "react-router-dom": "^5.2.0",
     "uuid": "^8.3.2"
+
+# Tools Used
 
 ### Development Environment
 * Node.js
