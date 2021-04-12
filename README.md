@@ -16,7 +16,7 @@ MyFlickz is a **REST API** built using the **MERN** stack.
 
 # Take a Look at the App
 <kbd>
-<img src="images-readme/img1.png" height="350" />
+<img src="images-readme/img1.png"/>
 </kbd>
 
 
