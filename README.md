@@ -4,7 +4,7 @@ MyFlickz is a **REST API** built using the **MERN** stack.
 ### Description
 **MyFlickz** is a film buff's dream. It is essentially a database of movies, genres, and directors, where users can browse through a large selection of films and enrich their knowledge of cinema. 
 
-##### Users can:
+### Users can:
 
 * create an account.
 * search for a movie by name, genre, director, or by browsing through the selection.
