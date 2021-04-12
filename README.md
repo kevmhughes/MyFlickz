@@ -1,30 +1,200 @@
 # MyFlickz 
-### A full stack web development project. 
-MyFlickz is a **REST API** built using the **MERN** stack.
-### Description
-**MyFlickz** is a film buff´s dream. It is essentially a database of movies, genres, and directors, where users can browse through a large selection and enrich their knowledge of cinema. 
 
-##### Users can:
+### A full stack project built using the **MERN** stack.
+
+
+#### Client Side:
+The UI was built using **React**, and handles data requested by the user through the REST API [endpoints](https://github.com/kevmhughes/MyFlickz/blob/main/README.md#endpoints) defined below.
+
+#### Server Side:
+The **REST API**, and database, were built using **JavaScript**, **Node.js**, **Express**, and **MongoDB**.
+
+# Description
+**MyFlickz** is a film buff's dream. It is essentially a database of movies, genres, and directors, where users can browse through a large selection of films and enrich their knowledge of cinema. 
+
+### Users can:
 
 * create an account.
-* search for a movie by name, genre, director, or by browsing through the selection.
-* access information about the movie's director, and view other movies from the same director.
-* access information about the movie's genre, and view other movies in the same genre.
+* see all the movies in the database.
+* get detailed information on a single movie by movie title.
+* get detailed information on a genre by genre name, and view other movies in the same genre.
+* get detailed information on a director by name, and view other movies from the same director.
 * create a list of their favourite movies.
-* update their profile/user information.
+* update their user information.
 * delete their account.
 
 # Take a Look at the App
 <kbd>
-<img src="images-readme/img1.png" height="350" />
+<img src="images-readme/img1.png"/>
 </kbd>
 
 
-# Features of the App
-JWT Token
-Hashed password
-CORS 
-etc.
+# Endpoints
+
+<body>
+<table class="doctable">
+    <thead>
+        <tr>
+            <th>Business Logic</th>
+            <th>URL</th>
+            <th>HTTP Method</th>
+            <th>Request Body Data Format</th>
+            <th>Response Body Data Format</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Return a list of ALL movies to the user</td>
+            <td>/movies</td>
+            <td>GET</td>
+            <td>None</td>
+            <td>A JSON object holding data about all the movies</td>
+          </tr>
+          <tr>
+            <td>
+              Return data (description, genre, director, image URL) on a single
+              film by title
+            </td>
+            <td>/movies/[Title]</td>
+            <td>GET</td>
+            <td>None</td>
+            <td>
+              A JSON object holding data about a single movie, containing title,
+              description, genre, director and image URL.
+              <p>Example:</p>
+              <p style="color:blue">
+                { title : "Avatar", description : "A genetically engineered Na'vi
+                body operated from the brain of a remotely located human that is
+                used to interact with the natives of Pandora helps save the
+                Na´vi", genre : "Fantasy" director : "James Cameron", image URL:
+                http://imageurl.jpg }
+              </p>
+            </td>
+          </tr>
+          <tr>
+            <td>Return data on genre description</td>
+            <td>/movies/genres/[Name]</td>
+            <td>GET</td>
+            <td>None</td>
+            <td>
+              A JSON object handling data about the genre description.
+              <p>Example:</p>
+              <p style="color:blue">
+                { genre : "Fantasy", description : "Fantasy films are films that
+                belong to the fantasy genre with fantastic themes, usually magic,
+                supernatural events, mythology, folklore, or exotic fantasy
+                worlds." }
+              </p>
+            </td>
+          </tr>
+          <tr>
+            <td>Return data on director biography</td>
+            <td>/movies/directors/[Name]</td>
+            <td>GET</td>
+            <td>None</td>
+            <td>
+              A JSON object handling data on the director biography.
+              <p>Example:</p>
+              <p style="color:blue">
+                { name : "James Cameron", bio : "James Francis Cameron is a
+                Canadian filmmaker and environmentalist, who is best known for
+                making science fiction and epic films for the Hollywood
+                mainstream. Cameron first gained recognition for directing The
+                Terminator.", date of birth: "August 16th, 1954" }
+              </p>
+            </td>
+          </tr>
+          <tr>
+            <td>Allow new users to register</td>
+            <td>/users</td>
+            <td>POST</td>
+            <td>
+              A JSON object handling data about the user to be added.
+              <p>Example:</p>
+              <p style="color:blue">
+                { username : "username123", password : "username123password",
+                e-mail : username123@email.com, date of birth: "1987-08-21" }
+              </p>
+            </td>
+            <td>
+              A JSON object handling data about the new user that was added, and
+              including an assigned ID number.
+              <p>Example:</p>
+              <p style="color:blue">
+                { id: "123456789", username : "username123", password :
+                "username123password", e-mail : username123@email.com, date of
+                birth: "1987-08-21" }
+              </p>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              Allow users to update their user information (username, password,
+              email, date of birth)
+            </td>
+            <td>/users/[Username]</td>
+            <td>PUT</td>
+            <td>
+              A JSON object holding data about the user to add, structured like:
+              <p style="color: blue">
+                { "Username" : "Newusername1231561", "Password" :
+                "Newpassword3486198", "Email" : "Newemail16513651@gmail.com",
+                "Birthday" : "1980-10-15" }
+              </p>
+            </td>
+            <td>
+              A text message indicating that the user´s information was updated
+            </td>
+          </tr>
+          <tr>
+            <td>Allow users to add a movie to their list of favourite movies</td>
+            <td>/users/[Username]/movies/[MovieID]</td>
+            <td>POST</td>
+            <td>None</td>
+            <td>
+              A text message indicating that the movie was added to the user´s
+              list of favourite movies
+            </td>
+          </tr>
+          <tr>
+            <td>
+              Allow users to remove a movie from their list of favourite movies
+            </td>
+            <td>/users/[Username]/movies/[MovieID]</td>
+            <td>DELETE</td>
+            <td>None</td>
+            <td>
+              A text message indicating that a movie was removed from the user´s
+              list of favourite movies
+            </td>
+          </tr>
+          <tr>
+            <td>Allows existing users to deregister</td>
+            <td>/users/[Username]</td>
+            <td>DELETE</td>
+            <td>None</td>
+            <td>A text message indicating that the user was removed</td>
+          </tr>
+    </tbody>
+</table>
+
+</body>
+
+### Dependencies
+    "bcrypt": "^5.0.1",
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "express-validator": "^6.10.0",
+    "jsonwebtoken": "^8.5.1",
+    "lodash": "^4.17.21",
+    "mongoose": "^5.11.18",
+    "morgan": "^1.10.0",
+    "passport": "^0.4.1",
+    "passport-jwt": "^4.0.0",
+    "passport-local": "^1.0.0",
+    "react-router-dom": "^5.2.0",
+    "uuid": "^8.3.2"
 
 # Tools Used
 
@@ -36,11 +206,15 @@ etc.
 * Mongoose
 * Express 
 
-### Database & Storage
+### Database
 * MongoDB
+
+### Hosting
+* Heroku
 
 ### Other
 * Postman
-* Heroku
+* Parcel 
+* React Redux
+* Bootstrap
 
-#### Dependencies
