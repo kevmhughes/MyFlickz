@@ -67,4 +67,7 @@ Put endpoints here...
 
 ### Other
 * Postman
-* Axios
+* Parcel 
+* React Redux
+* Bootstrap
+
