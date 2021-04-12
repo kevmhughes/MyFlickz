@@ -16,9 +16,9 @@ The **REST API**, and database, were built using **JavaScript**, **Node.js**, **
 
 * create an account.
 * see all the movies in the database.
-* get detailed information about a single movie by movie title.
-* get detailed information about a genre by genre name, and view other movies in the same genre.
-* get detailed information about a director by name, and view other movies from the same director.
+* get detailed information on a single movie by movie title.
+* get detailed information on a genre by genre name, and view other movies in the same genre.
+* get detailed information on a director by name, and view other movies from the same director.
 * create a list of their favourite movies.
 * update their user information.
 * delete their account.
