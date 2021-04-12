@@ -7,7 +7,7 @@
 The UI was built using **React**, and handles data requested by the user through the REST API [endpoints](https://github.com/kevmhughes/MyFlickz/blob/main/README.md#endpoints) defined below.
 
 #### Server Side:
-The **REST API** and database were built using **JavaScript**, **Node.js**, **Express**, and **MongoDB**.
+The **REST API**, and database, were built using **JavaScript**, **Node.js**, **Express**, and **MongoDB**.
 
 # Description
 **MyFlickz** is a film buff's dream. It is essentially a database of movies, genres, and directors, where users can browse through a large selection of films and enrich their knowledge of cinema. 
