@@ -32,7 +32,7 @@ The **REST API**, and database, were built using **JavaScript**, **Node.js**, **
 # Endpoints
 
 <body>
-<table class="doctable" style="width: 1000px;">
+<table class="doctable" style="width: 90%">
     <thead>
         <tr>
             <th>Business Logic</th>
