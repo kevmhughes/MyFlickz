@@ -43,4 +43,3 @@ etc.
 * Postman
 * Heroku
 
-#### Dependencies
