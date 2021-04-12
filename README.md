@@ -32,12 +32,6 @@ The **REST API**, and database, were built using **JavaScript**, **Node.js**, **
 # Endpoints
 
 <body>
-
-<h1>MyFlickz Documentation</h1>
-<p>This web application will provide users with access to information about 
-    different movies, directors, and genres. <br> Users will be able to sign up, 
-    update their personal information, and create a list of their favorite 
-    movies.</p>
 <table class="doctable" style="width: 1000px;">
     <thead>
         <tr>
