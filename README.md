@@ -59,8 +59,8 @@ Put endpoints here...
 * Mongoose
 * Express 
 
-### Database & Storage
-* MongoD
+### Database
+* MongoDB
 
 ### Hosting
 * Heroku
