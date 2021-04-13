@@ -29,6 +29,13 @@ export class MovieView extends React.Component {
     console.log(user);
   }
 
+  /**
+   * Pushes the movie to the user's favorite movies array.
+   * @function addToFavorites
+   * @param {*} e 
+   * @returns {alert} 
+   */
+
   addToFavorites(e) {
     const { movie } = this.props;
     axios
@@ -46,6 +53,13 @@ export class MovieView extends React.Component {
         alert(`${movie.Title} was not added to your favorites.` + error);
       });
   }
+
+  /**
+   * Gets user data.
+   * @function getUserData
+   * @param {*} token 
+   * @returns {object} user data 
+   */
 
   getUserData(token) {
     axios
@@ -65,7 +79,13 @@ export class MovieView extends React.Component {
       });
   }
 
-  //pull fave movie from favoriteMovies array
+  /**
+   * Pulls the movie from the user's favorite movies array.
+   * @function removeFavoriteMovie
+   * @param {*} movieId 
+   * @returns {alert}
+   */
+
   removeFavoriteMovie(movieId) {
     axios
       .delete(`/users/${localStorage.getItem("user")}/movies/${movieId}`, {

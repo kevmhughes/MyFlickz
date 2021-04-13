@@ -24,6 +24,13 @@ export class RegistrationView extends React.Component {
     console.log("data: ", data);
   }
 
+  /**
+   * Posts the new user's information as an object in order to create a new user account.
+   * @function handleSubmit
+   * @param {*} e 
+   * @returns {alert} "User profile created successfully. Proceed to log in."
+   */
+
   handleSubmit(e) {
     e.preventDefault();
 

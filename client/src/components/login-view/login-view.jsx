@@ -8,6 +8,13 @@ export function LoginView(props) {
   const [ username, setUsername ] = useState('');
   const [ password, setPassword ] = useState('');
 
+  /**
+   * Posts the username and password as an object in order to login.
+   * @function handleSubmit 
+   * @param {*} e 
+   * @returns {object} user data
+   */
+
   const handleSubmit = (e) => {
     e.preventDefault();
     /* Send a request to the server for authentication */

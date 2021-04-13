@@ -32,8 +32,13 @@ export class GenreView extends React.Component {
       }
     }
 
-
-
+    /**
+     * Gets user data.
+     * @function getUserData
+     * @param {*} token 
+     * @returns {object} user data 
+     */
+    
     getUserData(token) {
       axios.get(`https://myflickz.herokuapp.com/users/${localStorage.getItem("user")}`, 
         {

@@ -27,6 +27,13 @@ export class MovieCard extends React.Component {
     }
   }
 
+    /**
+     * Gets user data.
+     * @function getUserData
+     * @param {*} token 
+     * @returns {object} user data 
+     */
+
   getUserData(token) {
     axios
       .get(`/users/${localStorage.getItem("user")}`, {

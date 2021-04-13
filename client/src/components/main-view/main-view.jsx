@@ -61,6 +61,13 @@ export class MainView extends React.Component {
     window.open("/", "_self");
   }
 
+  /**
+   * Get request to get the full list of movies.
+   * @function getMovies
+   * @param {*} token 
+   * @returns {array} array of movies
+   */
+  
   getMovies(token) {
     axios
       .get("/movies", {

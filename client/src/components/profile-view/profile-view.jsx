@@ -39,6 +39,13 @@ export class ProfileView extends React.Component {
     //console.log(user);
   }
 
+  /**
+   * Gets user data.
+   * @function getUserData
+   * @param {*} token 
+   * @returns {object} user data 
+   */
+
   getUserData(token) {
     axios.get(`/users/${localStorage.getItem("user")}`, 
       {
@@ -62,7 +69,13 @@ export class ProfileView extends React.Component {
       });
   }
 
-  //remove user
+  /**
+   * Deletes the user profile.
+   * @function deleteUser
+   * @param {*} e 
+   * @returns {alert} "Your account has been succesfully deleted."
+   */
+
   deleteUser(e) {
     e.preventDefault();
     axios.delete(`/users/${localStorage.getItem("user")}`,
@@ -93,7 +106,13 @@ export class ProfileView extends React.Component {
     console.log(this.state);
   }
 
-  //pull fave movie from favoriteMovies array
+  /**
+   * Deletes the movie from the user's favorite movies array.
+   * @function removeFavoriteMovie
+   * @param {*} movieId 
+   * @returns {alert} "Movie removed from favorites."
+   */
+
   removeFavoriteMovie(movieId) {
     axios.delete(
         `/users/${localStorage.getItem("user")}/movies/${movieId}`,
@@ -117,6 +136,13 @@ export class ProfileView extends React.Component {
     this.setState({ [e.target.name]: e.target.value });
     console.log("data: ", data);
   }
+
+  /**
+   * Puts the user information as an object in order to update the user's details.
+   * @function handleSubmit
+   * @param {*} e 
+   * @returns {alert} "Your account details have been updated."
+   */
 
   handleSubmit(e) {
     e.preventDefault();
