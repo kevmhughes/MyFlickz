@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: director-view.jsx</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: director-view.jsx</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React from 'react';
+import PropTypes from 'prop-types';
+import { Card, Container, Media, Button } from 'react-bootstrap';
+import axios from 'axios';
+import { Link } from 'react-router-dom';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
+import { faStar} from "@fortawesome/free-solid-svg-icons";
+import './director-view.scss';
+
+
+export class DirectorView extends React.Component {
+
+    constructor() {
+        super();
+
+        this.state = {
+          user: {},
+          favoriteMovies: [],          
+        };
+    }
+
+    componentDidMount() {
+      this.mounted = true;
+      let accessToken = localStorage.getItem("token");
+      let user = localStorage.getItem("user");
+      if (accessToken !== null) {
+        this.getUserData(accessToken);
+      }
+    }
+
+    /**
+     * Gets user data.
+     * @function getUserData
+     * @param {*} token 
+     * @returns {object} user data 
+     */
+    
+    getUserData(token) {
+      axios.get(`https://myflickz.herokuapp.com/users/${localStorage.getItem("user")}`, 
+        {
+          headers: { Authorization: `Bearer ${token}` }
+        })
+        .then((response) => {
+          // assign the result to the state
+          this.setState({
+            user: response.data,
+            favoriteMovies: response.data.FavoriteMovies
+            
+          });
+          console.log(response.data);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    };
+
+    goBack = () => {
+      window.history.go(-1);
+      if (
+        window.location.pathname === '/' ||
+        (window.history.state &amp;&amp; window.history.state.key)
+      ) {
+        return;
+      }
+      if (this.timer) {
+        clearTimeout(this.timer);
+      }
+      this.timer = setTimeout(() => {
+        this.goBack();
+      }, 100);
+    };
+
+    componentWillUnmount() {
+      // fix Warning: Can't perform a React state update on an unmounted component
+      this.mounted = false;
+      this.setState = (state,callback)=>{
+          return;
+      };
+  }
+  
+
+    render() {
+        const { movies, director } = this.props;
+
+        if (!director) return null;
+
+        return (
+        &lt;Container className="director-view">
+
+            &lt;a onClick={this.goBack} >
+              &lt;FontAwesomeIcon icon={faChevronLeft} className="mr-2 mr-sm-4 go-back"/>
+            &lt;/a>
+          
+          &lt;Media className="d-flex flex-lg-row flex-xs-column flex-sm-column">
+            &lt;Media.Body>
+
+              &lt;Link to={`/`}>
+                &lt;Button className="director-movies-button" size="sm" variant="outline-primary">All movies&lt;/Button>
+              &lt;/Link>
+
+            &lt;div className="director-name">
+              &lt;h1 className="value">{director.Name}&lt;/h1>
+            &lt;/div>
+            &lt;div className="director-dateofbirth">
+              &lt;span className="value">Born in {director.Birth}&lt;/span>
+            &lt;/div>
+              {(director.hasOwnProperty('Death')) ? &lt;div className="director-dateofDeath">&lt;span className="value">Died in {director.Death}&lt;/span>&lt;/div> : "" }
+            &lt;br />
+            &lt;div className="director-description">
+              &lt;span className="label">Biography:&lt;/span>
+              &lt;br />
+              &lt;span className="director-bio">{director.Bio}&lt;/span>
+            &lt;/div>
+
+            &lt;/Media.Body>
+          &lt;/Media>
+
+        &lt;div className="director-view">
+        &lt;br/>
+        &lt;h4 className=" some-movies-director mt-4 ml-30">Some movies from {director.Name}&lt;/h4>
+            &lt;div className="director-movie-list d-flex row mt-3 ml-15">
+              {movies.map(m => {
+                if (m.Director.Name === director.Name) {
+                  return (
+                    &lt;div key={m._id} style={{ marginRight: "0px", marginBottom: "20px" }}>
+                      &lt;Card className="director-card-body mb-3 mr-2">
+                        &lt;Card.Img className="card-image-height" variant="top" src={m.ImagePath} />
+                        &lt;Card.Body>
+                          &lt;Card.Title style={{ height: '3rem'}}>&lt;Link to={`/movies/${m._id}`} style={{ textDecoration: "none" }}>{m.Title}&lt;/Link>&lt;span className="value" >{this.state.favoriteMovies.includes(m._id) 
+                            ? &lt;FontAwesomeIcon icon={faStar} style={{color: "orange", height: "15px", marginBottom: "3px"}}/> 
+                            : "" }&lt;/span>
+                          &lt;/Card.Title>
+                          &lt;Card.Subtitle className="text-muted">&lt;Link to={`/genres/${m.Genre.Name}`} style={{ textDecoration: "none" }}>{m.Genre.Name}&lt;/Link>&lt;/Card.Subtitle>
+                          &lt;Card.Text style={{ height: '120px'}}>{m.Description.substring(0, 90)}...&lt;/Card.Text>
+                          &lt;Link to={`/movies/${m._id}`}>
+                            &lt;Button variant="primary" size="sm" >Read more&lt;/Button>
+                          &lt;/Link>
+                        &lt;/Card.Body>
+                      &lt;/Card>
+                    &lt;/div>
+                  );
+                }
+              })}
+            &lt;/div>
+        &lt;/div>
+        &lt;/Container>
+        );
+    }
+}
+
+DirectorView.propTypes = {
+    director: PropTypes.shape({
+      Name: PropTypes.string,
+      Bio: PropTypes.string,
+      Birth: PropTypes.string,
+      Death: PropTypes.string
+    }).isRequired
+  
+  };</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#getUserData">getUserData</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.6</a> on Tue Apr 13 2021 02:26:07 GMT+0200 (Central European Summer Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

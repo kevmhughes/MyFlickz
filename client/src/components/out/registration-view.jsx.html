@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: registration-view.jsx</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: registration-view.jsx</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React from "react";
+import { Navbar, Container, Row, Col, Form, Button } from "react-bootstrap";
+import axios from "axios";
+import "./registration-view.scss";
+import { Link } from "react-router-dom";
+
+export class RegistrationView extends React.Component {
+  constructor(props) {
+    super();
+    this.state = {
+      username: "",
+      password: "",
+      email: "",
+      birthday: "",
+    };
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.changeHandler = this.changeHandler.bind(this);
+  }
+
+  changeHandler(e) {
+    let data = Object.assign({}, this.state);
+
+    this.setState({ [e.target.name]: e.target.value });
+    console.log("data: ", data);
+  }
+
+  /**
+   * Posts the new user's information as an object in order to create a new user account.
+   * @function handleSubmit
+   * @param {*} e 
+   * @returns {alert} "User profile created successfully. Proceed to log in."
+   */
+
+  handleSubmit(e) {
+    e.preventDefault();
+
+    //handles form validation
+    console.log(this.state);
+    const form = e.currentTarget;
+    if (form.checkValidity() === false) {
+      event.stopPropagation();
+    } else {
+      this.setState({ validated: true });
+    }
+    // notify that fields were validated,
+    // therefore feedback can be shown
+    // (otherwise it will appear at page load)
+
+    axios
+      .post("/users", {
+        Username: this.state.username,
+        Password: this.state.password,
+        Email: this.state.email,
+        Birthday: this.state.birthday,
+      })
+      .then((response) => {
+        const data = response.data;
+        console.log(data);
+        alert("User profile created successfully. Proceed to log in.");
+        window.open("/client", "_self"); // the second argument '_self' is necessary so that the page will open in the current tab
+      })
+      .catch((e) => {
+        console.log(e.response);
+        alert("Error registering the user");
+      });
+  }
+
+  render() {
+    return (
+      &lt;Container className="registration-view">
+        &lt;Navbar fixed="top" variant="light" bg="light">
+          &lt;Navbar.Brand href="/client/users">MyFlickz&lt;/Navbar.Brand>
+        &lt;/Navbar>
+
+        &lt;div className="registration-view">
+          &lt;Row className="justify-content-center">
+            &lt;Col className="form-container">
+              &lt;Row>
+                &lt;Col>
+                  &lt;h1>Create Account&lt;/h1>
+                  &lt;br />
+                &lt;/Col>
+              &lt;/Row>
+
+              &lt;Form
+                noValidate
+                validated={this.state.validated}
+                onSubmit={this.handleSubmit}
+              >
+                &lt;Form.Group controlId="formBasicUsername">
+                  &lt;Form.Control
+                    className="registration-input"
+                    size="sm"
+                    type="text"
+                    name="username"
+                    value={this.username}
+                    onChange={this.changeHandler}
+                    required
+                    minLength={5}
+                    pattern="[a-zA-Z0-9]+"
+                    placeholder="Enter username"
+                  />
+                  &lt;Form.Control.Feedback type="invalid">
+                    Username must be alphanumeric and include at least 5
+                    characters.
+                  &lt;/Form.Control.Feedback>
+                &lt;/Form.Group>
+
+                &lt;Form.Group controlId="formBasicPassword">
+                  &lt;Form.Control
+                    className="registration-input"
+                    size="sm"
+                    type="password"
+                    name="password"
+                    value={this.password}
+                    onChange={this.changeHandler}
+                    required
+                    minLength={5}
+                    placeholder="Enter password"
+                  />
+                  &lt;Form.Control.Feedback type="invalid">
+                    Password must include at least 5 characters.
+                  &lt;/Form.Control.Feedback>
+                &lt;/Form.Group>
+
+                &lt;Form.Group controlId="formBasicEmail">
+                  &lt;Form.Control
+                    className="registration-input"
+                    size="sm"
+                    type="email"
+                    name="email"
+                    value={this.email}
+                    onChange={this.changeHandler}
+                    required
+                    placeholder="Enter email"
+                  />
+                  &lt;Form.Control.Feedback type="invalid">
+                    Please provide a valid email address.
+                  &lt;/Form.Control.Feedback>
+                &lt;/Form.Group>
+
+                &lt;Form.Group controlId="formBasicBirthday">
+                  &lt;Form.Control
+                    className="registration-input"
+                    size="sm"
+                    type="date"
+                    name="birthday"
+                    value={this.birthday}
+                    onChange={this.changeHandler}
+                    required
+                    pattern="^(19|20)\d\d[- /.](0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01])$"
+                    placeholder="Enter birthday (e.g. 1970/02/31)"
+                  />
+                  &lt;Form.Control.Feedback type="invalid">
+                    Please provide a valid date (e.g. yyyy/mm/dd)
+                  &lt;/Form.Control.Feedback>
+                &lt;/Form.Group>
+
+                &lt;div className="button">
+                  &lt;Button
+                    className="registration-button"
+                    size="sm"
+                    style={{ float: "right" }}
+                    variant="primary"
+                    type="submit"
+                    onClick={(e) => this.handleSubmit(e)}
+                  >
+                    Register
+                  &lt;/Button>
+                &lt;/div>
+                &lt;br />
+                &lt;br />
+                &lt;Row>
+                  &lt;span style={{ width: "100%", marginTop: "15px" }}>
+                    Already registered?{" "}
+                    &lt;a href="/client" style={{ textDecoration: "none" }}>
+                      Log in
+                    &lt;/a>
+                  &lt;/span>
+                &lt;/Row>
+              &lt;/Form>
+            &lt;/Col>
+          &lt;/Row>
+        &lt;/div>
+      &lt;/Container>
+    );
+  }
+}
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#handleSubmit">handleSubmit</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.6</a> on Tue Apr 13 2021 02:27:43 GMT+0200 (Central European Summer Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

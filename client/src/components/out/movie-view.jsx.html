@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: movie-view.jsx</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: movie-view.jsx</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React from "react";
+import axios from "axios";
+import PropTypes from "prop-types";
+import { Container, Media, Button } from "react-bootstrap";
+import { Link } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
+import { faStar } from "@fortawesome/free-solid-svg-icons";
+import "./movie-view.scss";
+
+export class MovieView extends React.Component {
+  constructor() {
+    super();
+
+    this.state = {
+      user: {},
+      favoriteMovies: [],
+    };
+  }
+
+  componentDidMount() {
+    this.mounted = true;
+    let accessToken = localStorage.getItem("token");
+    let user = localStorage.getItem("user");
+    if (accessToken !== null) {
+      this.getUserData(accessToken);
+    }
+    console.log(accessToken);
+    console.log(user);
+  }
+
+  /**
+   * Pushes the movie to the user's favorite movies array.
+   * @function addToFavorites
+   * @param {*} e 
+   * @returns {alert} 
+   */
+
+  addToFavorites(e) {
+    const { movie } = this.props;
+    axios
+      .post(
+        `/users/${localStorage.getItem("user")}/movies/${movie._id}`,
+        { username: localStorage.getItem("user") },
+        {
+          headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+        }
+      )
+      .then((res) => {
+        document.location.reload(true);
+      })
+      .catch((error) => {
+        alert(`${movie.Title} was not added to your favorites.` + error);
+      });
+  }
+
+  /**
+   * Gets user data.
+   * @function getUserData
+   * @param {*} token 
+   * @returns {object} user data 
+   */
+
+  getUserData(token) {
+    axios
+      .get(`/users/${localStorage.getItem("user")}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      .then((response) => {
+        // assign the result to the state
+        this.setState({
+          user: response.data,
+          favoriteMovies: response.data.FavoriteMovies,
+        });
+        console.log(response.data);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }
+
+  /**
+   * Pulls the movie from the user's favorite movies array.
+   * @function removeFavoriteMovie
+   * @param {*} movieId 
+   * @returns {alert}
+   */
+
+  removeFavoriteMovie(movieId) {
+    axios
+      .delete(`/users/${localStorage.getItem("user")}/movies/${movieId}`, {
+        headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+      })
+      .then((response) => {
+        document.location.reload(true);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }
+
+  componentWillUnmount() {
+    // fix Warning: Can't perform a React state update on an unmounted component
+    this.mounted = false;
+    this.setState = (state, callback) => {
+      return;
+    };
+  }
+
+  render() {
+    const { movie } = this.props;
+    console.log({ movie });
+    if (!movie) return null;
+
+    return (
+      &lt;Container className="movie-view">
+        &lt;Media className="d-flex flex-lg-row flex-xs-column-reverse flex-sm-column-reverse">
+          &lt;Media.Body>
+            &lt;a href="/client">
+              &lt;FontAwesomeIcon icon={faChevronLeft} className="mr-2 mr-sm-4" />
+            &lt;/a>
+
+            &lt;div className="movie-title">
+              &lt;span className="value">
+                &lt;h1>
+                  {movie.Title}
+                  {this.state.favoriteMovies.includes(movie._id) ? (
+                    &lt;FontAwesomeIcon
+                      icon={faStar}
+                      className="star-toggle-off"
+                      onClick={(e) => this.removeFavoriteMovie(movie._id)}
+                    />
+                  ) : (
+                    &lt;FontAwesomeIcon
+                      icon={faStar}
+                      className="star-toggle-on"
+                      onClick={(e) => this.addToFavorites(e)}
+                    />
+                  )}
+                &lt;/h1>
+              &lt;/span>
+            &lt;/div>
+            &lt;br />
+
+            &lt;div className="movie-director">
+              &lt;span className="label">Director: &lt;/span>
+              &lt;Link to={`/directors/${movie.Director.Name}`}>
+                &lt;Button variant="link">{movie.Director.Name}&lt;/Button>
+              &lt;/Link>
+            &lt;/div>
+
+            &lt;div className="movie-genre">
+              &lt;span className="label">Genre: &lt;/span>
+              &lt;Link to={`/genres/${movie.Genre.Name}`}>
+                &lt;Button variant="link">{movie.Genre.Name}&lt;/Button>
+              &lt;/Link>
+            &lt;/div>
+            &lt;br />
+
+            &lt;div className="movie-description" style={{ width: "95%" }}>
+              &lt;span className="label">Description: &lt;/span>
+              &lt;br />
+              &lt;span className="value">{movie.Description}&lt;/span>
+            &lt;/div>
+            &lt;br />
+            &lt;br />
+            &lt;br />
+          &lt;/Media.Body>
+          &lt;img
+            className="movie-poster"
+            src={movie.ImagePath}
+          />
+        &lt;/Media>
+      &lt;/Container>
+    );
+  }
+}
+
+MovieView.propTypes = {
+  movies: PropTypes.arrayOf(
+    PropTypes.shape({
+      _id: PropTypes.string,
+      Title: PropTypes.string,
+      ImagePath: PropTypes.string,
+      Description: PropTypes.string,
+      Genre: PropTypes.shape({
+        Name: PropTypes.string,
+        Description: PropTypes.string,
+      }),
+      Director: PropTypes.shape({
+        Name: PropTypes.string,
+        Bio: PropTypes.string,
+        Birth: PropTypes.string,
+        Death: PropTypes.string,
+      }),
+    })
+  ),
+};
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#addToFavorites">addToFavorites</a></li><li><a href="global.html#getUserData">getUserData</a></li><li><a href="global.html#removeFavoriteMovie">removeFavoriteMovie</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.6</a> on Tue Apr 13 2021 02:27:15 GMT+0200 (Central European Summer Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

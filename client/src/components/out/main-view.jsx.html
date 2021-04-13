@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: main-view.jsx</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: main-view.jsx</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React from "react";
+import axios from "axios";
+
+import { connect } from "react-redux";
+
+import PropTypes from "prop-types";
+import { Spinner, Navbar, Nav, Button } from "react-bootstrap";
+import { BrowserRouter as Router, Route } from "react-router-dom";
+import "./main-view.scss";
+
+// #0
+import { setMovies } from "../../actions/actions";
+import MoviesList from "../movies-list/movies-list";
+
+import { RegistrationView } from "../registration-view/registration-view";
+import { LoginView } from "../login-view/login-view";
+import { MovieView } from "../movie-view/movie-view";
+import { GenreView } from "../genre-view/genre-view";
+import { DirectorView } from "../director-view/director-view";
+import { ProfileView } from "../profile-view/profile-view";
+
+export class MainView extends React.Component {
+  constructor() {
+    // Call the superclass constructor
+    // so that React can initialize it
+    super();
+
+    //Initialize the state to an empty object
+    // so that we can destructure it later
+    this.state = {
+      user: null,
+      isLoading: true,
+    };
+  }
+
+  componentDidMount() {
+    let accessToken = localStorage.getItem("token");
+    if (accessToken !== null) {
+      this.setState({
+        user: localStorage.getItem("user"),
+      });
+      this.getMovies(accessToken);
+    }
+  }
+
+  onLoggedIn(authData) {
+    console.log(authData);
+    this.setState({
+      user: authData.user.Username,
+    });
+    window.open("/", "_self");
+    localStorage.setItem("token", authData.token);
+    localStorage.setItem("user", authData.user.Username);
+    this.getMovies(authData.token);
+  }
+
+  onLogOut() {
+    localStorage.removeItem("token"); //, authData.token);
+    localStorage.removeItem("user"); //, authData.user.Username);
+    this.setState({ isLoading: false, user: null });
+    window.open("/", "_self");
+  }
+
+  /**
+   * Get request to get the full list of movies.
+   * @function getMovies
+   * @param {*} token 
+   * @returns {array} array of movies
+   */
+  
+  getMovies(token) {
+    axios
+      .get("/movies", {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      .then((response) => {
+        // #1
+        this.props.setMovies(response.data);
+        this.setState({ isLoading: false });
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }
+
+  // This overrides the render() method of the superclass
+  // No need to call super() though, as it does nothing by default
+  render() {
+    // If the state is not initialized, this will throw on runtime
+    // before the data is initially loaded
+    // const { movies, user } = this.state;
+
+    // #2
+    let { movies } = this.props;
+    let { user } = this.state;
+
+    //Before the movies have been loaded
+    if (!movies) return &lt;div className="main-view" />;
+
+    return (
+      &lt;Router basename="/client">
+        &lt;Navbar 
+          className="d-flex justify-content-between" 
+          fixed="top" 
+          variant="light" 
+          bg="light" 
+          expand="sm">
+          &lt;Navbar.Brand href="/client">MyFlickz&lt;/Navbar.Brand>
+          &lt;Navbar.Toggle aria-controls="basic-navbar-nav"/>
+          &lt;Navbar.Collapse className="justify-content-end" id="basic-navbar-nav">
+          &lt;Navbar.Text>Signed in as: {user}&lt;/Navbar.Text>
+            &lt;div className="profile-button">
+              &lt;Button href={`/client/users/${user}`}>Profile&lt;/Button>
+            &lt;/div>
+            &lt;div className="logout-button">
+              &lt;Button 
+                variant="outline-primary" 
+                href={`/client`} 
+                onClick={() => this.onLogOut()}>Log Out&lt;/Button>
+            &lt;/div>
+          &lt;/Navbar.Collapse>
+        &lt;/Navbar>
+
+        &lt;div className="login-view">
+          &lt;Route
+            exact
+            path="/"
+            render={() => {
+              if (!user)
+                return (
+                  &lt;LoginView onLoggedIn={(user) => this.onLoggedIn(user)} />
+                );
+            }}
+          />
+        &lt;/div>
+
+        &lt;div className="main-view">
+          {this.state.isLoading &amp;&amp; user ? (
+            &lt;div>
+              &lt;div className="spinner-div">
+                &lt;Spinner className="spinner" animation="border" />
+              &lt;/div>
+            &lt;/div>
+          ) : (
+            &lt;div>
+              &lt;Route
+                exact
+                path="/"
+                render={() => {
+                  if (user) return &lt;MoviesList movies={movies} />;
+                }}
+              />
+              &lt;Route exact path="/users" render={() => &lt;RegistrationView />} />
+
+              &lt;Route
+                exact
+                path="/users/:username"
+                render={() => &lt;ProfileView movies={movies} user={user} />}
+              />
+
+              &lt;Route
+                path="/movies/:movieId"
+                render={({ match }) => (
+                  &lt;MovieView
+                    movie={movies.find((m) => m._id === match.params.movieId)}
+                  />
+                )}
+              />
+
+              &lt;Route
+                path="/directors/:name"
+                render={({ match }) => {
+                  if (!movies) return &lt;div className="main-view" />;
+                  return (
+                    &lt;DirectorView
+                      director={
+                        movies.find(
+                          (m) => m.Director.Name === match.params.name
+                        ).Director
+                      }
+                      movies={movies}
+                    />
+                  );
+                }}
+              />
+
+              &lt;Route
+                path="/genres/:name"
+                render={({ match }) => {
+                  if (!movies) return &lt;div className="main-view" />;
+                  return (
+                    &lt;GenreView
+                      genre={
+                        movies.find((m) => m.Genre.Name === match.params.name)
+                          .Genre
+                      }
+                      movies={movies}
+                    />
+                  );
+                }}
+              />
+            &lt;/div>
+          )}
+        &lt;/div>
+      &lt;/Router>
+    );
+  }
+}
+
+// #3
+let mapStateToProps = (state) => {
+  return { movies: state.movies };
+};
+
+// #4
+export default connect(mapStateToProps, { setMovies })(MainView);
+
+MainView.propTypes = {
+  movies: PropTypes.arrayOf(
+    PropTypes.shape({
+      _id: PropTypes.string,
+      Title: PropTypes.string,
+      ImagePath: PropTypes.string,
+      Description: PropTypes.string,
+      Genre: PropTypes.shape({
+        Name: PropTypes.string,
+        Description: PropTypes.string,
+      }),
+      Director: PropTypes.shape({
+        Name: PropTypes.string,
+        Bio: PropTypes.string,
+        Birth: PropTypes.string,
+        Death: PropTypes.string,
+      }),
+    })
+  ),
+};
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#getMovies">getMovies</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.6</a> on Tue Apr 13 2021 02:26:59 GMT+0200 (Central European Summer Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
