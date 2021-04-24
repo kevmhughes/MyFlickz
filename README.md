@@ -2,7 +2,7 @@
 
 Go to the app [here](https://myflickz.herokuapp.com/client/)
 
-# Take a Look at the App
+
 
 <kbd>
 <img src="images-readme/img1.png"/>
