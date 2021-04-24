@@ -1,7 +1,8 @@
 # MyFlickz 
 
-### A full stack project built using the **MERN** stack.
+Take a look at the app [here](myflickz.herokuapp.com/client)
 
+### MyFlickz is a full stack project built using the **MERN** stack.
 
 #### Client Side:
 The UI was built using **React**, and handles data requested by the user through the REST API [endpoints](https://github.com/kevmhughes/MyFlickz/blob/main/README.md#endpoints) defined below.
