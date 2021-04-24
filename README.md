@@ -1,8 +1,6 @@
-# [MyFlickz](https://myflickz.herokuapp.com/client/)
+# MyFlickz
 
-<kbd>
-<img src="images-readme/img1.png"/>
-</kbd>
+Take a look at the app [here](https://myflickz.herokuapp.com/client/)
 
 ### This application is a full stack project built using the **MERN** stack.
 
@@ -14,6 +12,11 @@ The **REST API**, and database, were built using **JavaScript**, **Node.js**, **
 
 # Description
 **MyFlickz** is a film buff's dream. It is essentially a database of movies, genres, and directors, where users can browse through a large selection of films and enrich their knowledge of cinema. 
+
+<kbd>
+<img src="images-readme/img1.png"/>
+</kbd>
+
 
 # Tools Used
 
