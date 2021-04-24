@@ -1,7 +1,5 @@
 # MyFlickz 
 
-Go to the app [here](https://myflickz.herokuapp.com/client/)
-
 ### This application is a full stack project built using the **MERN** stack.
 
 #### Client Side:
@@ -49,6 +47,7 @@ The **REST API**, and database, were built using **JavaScript**, **Node.js**, **
 * delete their account.
 
 # Take a Look at the App
+Go to the app [here](https://myflickz.herokuapp.com/client/)
 <kbd>
 <img src="images-readme/img1.png"/>
 </kbd>
