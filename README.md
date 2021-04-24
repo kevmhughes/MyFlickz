@@ -1,6 +1,6 @@
 # MyFlickz 
 
-Take a look at the app [here](https://github.com/kevmhughes/MyFlickz)
+Take a look at the app [here](https://myflickz.herokuapp.com/client/)
 
 ### This application is a full stack project built using the **MERN** stack.
 
