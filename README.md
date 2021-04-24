@@ -12,6 +12,30 @@ The **REST API**, and database, were built using **JavaScript**, **Node.js**, **
 # Description
 **MyFlickz** is a film buff's dream. It is essentially a database of movies, genres, and directors, where users can browse through a large selection of films and enrich their knowledge of cinema. 
 
+# Tools Used
+
+### Development Environment
+* Node.js
+
+### Libraries & Frameworks
+* React 
+* Mongoose
+* Express 
+
+### Database
+* MongoDB
+
+### Hosting
+* Heroku
+
+### Other
+* Postman
+* Parcel 
+* React Redux
+* Bootstrap
+
+# Features
+
 ### Users can:
 
 * create an account.
@@ -180,41 +204,5 @@ The **REST API**, and database, were built using **JavaScript**, **Node.js**, **
 
 </body>
 
-### Dependencies
-    "bcrypt": "^5.0.1",
-    "body-parser": "^1.19.0",
-    "cors": "^2.8.5",
-    "express": "^4.17.1",
-    "express-validator": "^6.10.0",
-    "jsonwebtoken": "^8.5.1",
-    "lodash": "^4.17.21",
-    "mongoose": "^5.11.18",
-    "morgan": "^1.10.0",
-    "passport": "^0.4.1",
-    "passport-jwt": "^4.0.0",
-    "passport-local": "^1.0.0",
-    "react-router-dom": "^5.2.0",
-    "uuid": "^8.3.2"
 
-# Tools Used
-
-### Development Environment
-* Node.js
-
-### Libraries & Frameworks
-* React 
-* Mongoose
-* Express 
-
-### Database
-* MongoDB
-
-### Hosting
-* Heroku
-
-### Other
-* Postman
-* Parcel 
-* React Redux
-* Bootstrap
 
