@@ -1,5 +1,13 @@
 # MyFlickz 
 
+Go to the app [here](https://myflickz.herokuapp.com/client/)
+
+# Take a Look at the App
+
+<kbd>
+<img src="images-readme/img1.png"/>
+</kbd>
+
 ### This application is a full stack project built using the **MERN** stack.
 
 #### Client Side:
@@ -35,7 +43,7 @@ The **REST API**, and database, were built using **JavaScript**, **Node.js**, **
 
 # Features
 
-### Users can:
+### Users are able to:
 
 * create an account.
 * see all the movies in the database.
@@ -45,13 +53,6 @@ The **REST API**, and database, were built using **JavaScript**, **Node.js**, **
 * create a list of their favourite movies.
 * update their user information.
 * delete their account.
-
-# Take a Look at the App
-Go to the app [here](https://myflickz.herokuapp.com/client/)
-<kbd>
-<img src="images-readme/img1.png"/>
-</kbd>
-
 
 # Endpoints
 
