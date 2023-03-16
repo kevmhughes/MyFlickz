@@ -36,5 +36,8 @@
     "url": "https://github.com/kevmhughes/MyFlickz/issues"
   },
   "homepage": "https://github.com/kevmhughes/MyFlickz#readme",
-  "description": ""
+  "description": "",
+  "engines": {
+    "node": ">=14 <15"
+  }
 }
