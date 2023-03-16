@@ -7,7 +7,8 @@ services:
     env: docker # valid values: https://render.com/docs/yaml-spec#environment
     dockerfilePath: Dockerfile.render
     plan: free # optional; defaults to starter
-    numInstances: 1
+    numInstances: 0
     envVars:
       - key: CONNECTION_URI # Imported from Heroku app
         value: mongodb+srv://Kevin_hughes:kjhg1223@myflixdb.u9xhs.mongodb.net/myFlixDB?retryWrites&#x3D;true&amp;w&#x3D;majority
+
