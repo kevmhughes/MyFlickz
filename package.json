@@ -38,6 +38,6 @@
   "homepage": "https://github.com/kevmhughes/MyFlickz#readme",
   "description": "",
   "engines": {
-    "node": ">=14 <15"
+    "node": ">=14.20.1"
   }
 }
