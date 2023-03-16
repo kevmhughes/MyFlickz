@@ -23,7 +23,7 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "parcel build",
+    "build": "parcel build src/index.html --public-url /client",
     "start": "node index.js"
   },
   "repository": {
