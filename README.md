@@ -53,7 +53,7 @@ The **REST API**, and database, were built using **JavaScript**, **Node.js**, **
 # Endpoints
 
 <body>
-<table class="doctable">
+<table class="doctable" width="600">
     <thead>
         <tr>
             <th>Business Logic</th>
